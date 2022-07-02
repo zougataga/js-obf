@@ -1,0 +1,110 @@
+div.imageContainer {
+    position: relative;
+    width: 250px;
+    height: 250px;
+    overflow: hidden;
+    border: 1px solid #11101d;
+    border-radius: 100%;
+    margin: 4rem
+}
+
+#images-to-upload {
+    overflow: hidden;
+    width: 248px;
+    height: 248px;
+}
+
+section img.imageThumbnail {
+    width: 250px;
+    min-height: 250px;
+    /*border-radius: 100%;*/
+    margin-bottom: 20px;
+}
+
+.inputImageChoser {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    BORDER: 1px solid #11101d;
+    /*background: rgba(0, 0, 0, 0.11);*/
+    border-radius: 100%;
+}
+
+section input#images {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+
+section input#images {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+section img.imageThumbnail {
+    width: 100%;
+    /*border-radius: 100%;*/
+    margin-bottom: 20px;
+    position: absolute;
+    top: 0%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    /*-webkit-transition: bottom 2s; !* Safari *!*/
+    transition: 2s;
+}
+
+div#images-to-upload {
+    border-radius: 100%;
+}
+
+button.btn2.btn2-sm.btn2-info.upload {
+    z-index: 100;
+    position: absolute;
+    /* top: 10%; */
+    background-color: #11101d;
+    color: white;
+    left: 10%;
+    width: 250px;
+    margin: 0 auto;
+    text-align: center;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    cursor: pointer;
+}
+
+
+
+.btn3 {
+    margin: 1rem;
+    padding: 14px 45px;
+    background: #da0723;
+    border-radius: 55px;
+    color: rgb(255, 255, 255);
+    border: none;
+    font-size:1.5rem;
+    transition: all .4s;
+    cursor: pointer;
+}
+
+.btn3:hover {
+    transform: scale(1.1);
+}
+
+@media screen and (max-width: 600px) {
+    div.imageContainer {
+        width: 150px;
+        height: 150px;    }
+        
+        .btn3 {
+            font-size:0.5rem;
+        }
+
+}

@@ -1,0 +1,109 @@
+
+.content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-weight: bold;
+    font-size: 1.7rem;
+    text-align: center;
+    color: #11101D;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#files {
+    padding: 0.8rem;
+
+    border-radius: 15px;
+
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #11101D;
+    color: rgb(255, 255, 255);
+}
+
+#btnnn {
+    margin: 1rem 0;
+    padding: 14px 45px;
+    background: #11101D;
+    border-radius: 55px;
+    color: #fff;
+    border: none;
+    font-size:1.5rem;
+    transition: all .4s;
+    cursor: pointer;
+}
+
+#btnnn:hover {
+    transform: scale(1.1);
+}
+
+#info {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+}
+
+@media screen and (max-width: 550) {
+    #btnnn {
+        font-size: 0.5rem;
+    }
+    
+    #info {
+        transform: scale(0.3);
+        margin: 1rem 2rem;
+    }
+}
+
+
+.input-file-container {
+    position: relative;
+    width: 225px;
+    cursor: pointer;
+}
+
+.js .input-file-trigger {
+    padding: 14px 45px;
+    background: #11101D;
+    border-radius: 55px;
+    color: #fff;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.js .input-file {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 225px;
+    opacity: 0;
+    padding: 14px 0;
+    cursor: pointer;
+}
+
+.file-return {
+    margin: 0;
+}
+
+.file-return:not(:empty) {
+    margin: 1em 0;
+}
+
+.js .file-return {
+    font-style: italic;
+    font-size: .9em;
+    font-weight: bold;
+}
+
+.js .file-return:not(:empty):before {
+    content: "Fichier: ";
+    font-style: normal;
+    font-weight: normal;
+}

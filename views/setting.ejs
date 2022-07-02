@@ -1,0 +1,148 @@
+<!-- 
+   @{Author}: https://github.com/llx404    
+ -->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>FreeDrive | Setting</title>
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/906/906329.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/panel.css">
+    <link rel="stylesheet" href="/css/setting.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo-details">
+            <img src="https://cdn-icons-png.flaticon.com/512/906/906329.png" alt="logo" width="36" class="icon">
+            <div class="logo_name">FreeDrive</div>
+            <i class='bx bx-menu' id="btn"></i>
+        </div>
+        <ul class="nav-list">
+            <li>
+                <div id="searchFrom">
+                    <i class='bx bx-search'></i>
+                    <input id="searchText" type="search" placeholder="Fichier (img.png)">
+                    <input type="submit" style="display: none" />
+                    <span class="tooltip">Rechercher un fichier</span>
+                </div>
+
+            </li>
+            <li>
+                <a href="/fichier">
+                    <i class='bx bx-folder'></i>
+                    <span class="links_name">Fichier</span>
+                </a>
+                <span class="tooltip">Fichier</span>
+            </li>
+            <li>
+                <a href="/upload">
+                    <i class='bx bx-cloud-upload'></i>
+                    <span class="links_name">Upload</span>
+                </a>
+                <span class="tooltip">Upload</span>
+            </li>
+            <li>
+                <a class="on" href="/setting">
+                    <i class='bx bx-cog'></i>
+                    <span class="links_name">Setting</span>
+                </a>
+                <span class="tooltip">Setting</span>
+            </li>
+            <!-- <li>
+                 <a href="#">
+                     <i class='bx bx-user'></i>
+                     <span class="links_name">User</span>
+                 </a>
+                 <span class="tooltip">User</span>
+             </li> -->
+            <li class="profile">
+                <div class="profile-details">
+                    <img src="<%= p %>"
+                        alt="profileImg" id="profilimg">
+                    <div class="name_job">
+                        <div class="name">
+                            <%= u %>
+                        </div>
+                        <div class="job">
+                            <%= j %>
+                        </div>
+                    </div>
+                </div><i class='bx bx-log-out' onclick="deco()" id="log_out"></i>
+            </li>
+        </ul>
+    </div>
+    <section class="home-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="imageContainer">
+                        <div id="images-to-upload" class="">
+                            <div class="formImage">
+                                <form action="/avatar" method="post">
+                                    <img src="<%= p %>"  class="imageThumbnail" alt="">
+                                </form>
+                            </div>
+        
+        
+                        </div>
+                        <div class="inputImageChoser">
+                            <input type="file" id="images" accept="image/x-png,image/gif,image/jpeg,image/jpg,image/webp" required>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="del">
+                <form action="/delete/<%= u %>" method="post">
+                <input type="submit" class="btn3" value="Supprimer votre compte">
+                </form>
+            </div>
+        
+        
+        </div>
+        
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+        <script>
+            var fileCollection = new Array();        
+            $("#images").on('change', function(e){
+                var files = e.target.files;
+                $.each(files, function(i, file){
+                    fileCollection = [];
+                    fileCollection.push(file);
+                    var reader = new FileReader();        
+                    reader.readAsDataURL(file);
+                    reader.onload = function(e){
+                        console.log(e);
+                        var template = '<div class="formImage"><form method="post" action="/avatar" class="format">'+
+                            '<img src="'+e.target.result+'" name="img" class="imageThumbnail" alt="">'+
+                            `<input style="display: none;" name="baseimg" value="${e.target.result}">`+
+                            '<button type="submit" class="btn2 btn2-sm btn2-info upload">Change PP</button>'+
+                            '</form></div>';
+        
+                        $("#images-to-upload").html(template);
+                    }
+                });
+                $('div.imageContainer').css('box-shadow', "0 0 20px #333");
+            });
+          
+        </script>
+    </section>
+ 
+    <script src="/js/menu.js"></script>
+    <script src="/js/search.js"></script>
+
+
+
+</body>
+
+</html>

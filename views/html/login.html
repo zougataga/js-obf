@@ -1,0 +1,54 @@
+<!-- 
+   @{Author}: https://github.com/llx404    
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreeDrive | Login</title>
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/906/906329.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/root.css">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+    <section class="container forms">
+        <div class="form login">
+            <div class="form-content">
+                <header><a class="anim-link">Se connecter</a></header>
+                <form action="/login" method="post">
+                    <div class="field input-field">
+                        <input type="email" name="mail" placeholder="Email" class="input" required>
+                    </div>
+
+                    <div class="field input-field">
+                        <input type="password" name="mdp" placeholder="Mot de passe" class="password" required>
+                        <i class='bx bx-hide eye-icon'></i>
+                    </div>
+
+                    <!-- <div class="form-link">
+                        <a href="#" class="forgot-pass">Mot de passe oublier ?</a>
+                    </div> -->
+
+                    <div class="field button-field">
+                        <button>Connectez-vous</button>
+                    </div>
+                </form>
+
+                <div class="form-link">
+                    <span><a href="/register" class="link login-link anim-link">Vous avez déjà un compte ?</a></span>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+    <!-- <footer class="ff">
+        <a class="anim-link" target="_blank" href="https://github.com/llx404"> &#169; D&eacute;velopper par llx404</a>
+    </footer> -->
+   <script src="/js/password.js"></script>
+</body>
+
+</html>
