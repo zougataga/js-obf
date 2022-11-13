@@ -7,8 +7,6 @@ const inputInvisible = document.querySelector("#input");
 const outputInvisible = document.querySelector("#outpout");
 const allCodeMirror = document.querySelectorAll(".CodeMirror");
 
-
-
 const Mode = {
   UNICODE_2: 'unicode-2',
   UNICODE_3: 'unicode-3'
@@ -19,112 +17,8 @@ outputLength();
 
 let mode = Mode.UNICODE_2;
 
-function goo() {
-  const content = window.input.getValue();
-  const result = new Promise((resolve) => resolve(Babel.transform(content, { presets: ['es2015'] })));
-  result.then(e => {
-    go();
-    notif(`Code obfusquer avec succès [${mode}]`);
-  }).catch(err => {
-    err = `Error: ${err.toString()}`
-    window.output.setValue(err);
-    notiferror(`Input Javascript Error [${mode}]`)
-  });
-  if (window.matchMedia("(max-width: 600px)").matches) {
-    $('html,body').animate({ scrollTop: $("#outputdiv").offset().top }, 'slow');
-  };
-}
-async function go() {
-  const input = window.input.getValue();
-  await inputLength();
-  await outputLength();
-  try {
-    let output;
-    if (mode === Mode.UNICODE_2) {
-      output = await compressUnicode2(input);
-    } else if (mode === Mode.UNICODE_3) {
-      output = await compressUnicode3(input);
-    };
-    window.output.setValue(output);
-    $('#output-count')[0].innerText = `${string_length(output)} chars`;
-  } catch (e) {
-    console.log(e);
-    window.output.setValue(`Error: ${e}`);
-  }
-}
 
-async function compressUnicode2(input) {
-  if (input.length % 2 === 1) {
-    input += ' ';
-  }
-  let output = '';
-  for (let i = 0; i < input.length; i += 2) {
-    output += String.fromCharCode(0xD800 + input.charCodeAt(i));
-    output += String.fromCharCode(0xDC00 + input.charCodeAt(i + 1))
-  }
-  if (unescape(escape(output).replace(/u../g, '')) !== input) {
-    throw 'Une erreur est survenue !';
-  };
-  let code = `eval(unescape(escape\`${output}\`.replace(/u../g,'')))`;
-  code = await obfuscate(code);
-  return code;
-}
-
-async function compressUnicode3(input) {
-  input = await obfuscate(input, true);
-  if (!input.startsWith(';')) {
-    input = ';' + input;
-  }
-  while (input.length % 3 !== 0) {
-    input += ' ';
-  }
-  let output = '';
-  for (let i = 0; i < input.length / 3; i++) {
-    output += String.fromCodePoint(
-      (input.charCodeAt(i) - 31) * 97 * 97 +
-      (input.charCodeAt(i + input.length / 3) - 31) * 97 +
-      input.charCodeAt(i + 2 * input.length / 3) - 31);
-  }
-  let test = '';
-  for (let i = 2; i >= 0; i--) {
-    for (const c of output) {
-      test += String.fromCharCode(c.codePointAt(0) / 97 ** i % 97 + 31);
-    }
-  }
-  if (test !== input) {
-    throw 'Une erreur est survenue !';
-  };
-  let code = `for(_=i=3;i--;)for(c of'${output}')_+=String.fromCharCode(c.codePointAt()/97**i%97+31);eval(_)`;
-  code = await obfuscate(code);
-  return code;
-}
-
-function obfuscate(code, compres) {
-  if (!compres) {
-    compres = {
-      compact: true,
-      controlFlowFlattening: true,
-      controlFlowFlatteningThreshold: 1,
-      numbersToExpressions: true,
-      simplify: true,
-      stringArrayShuffle: true,
-      splitStrings: true,
-      simplify: true,
-      stringArrayWrappersType: 'variable',
-      stringArrayThreshold: 1
-    };
-  } else {
-    compres = {
-      compact: true,
-    };
-  }
-  const result = JavaScriptObfuscator.obfuscate(code, compres);
-  return result.getObfuscatedCode();
-}
-
-$("#obfuscate").click(() => {
-  goo()
-});
+$("#obfuscate").click(() => goo());
 document.addEventListener('keyup', (event) => {
   switch (event.keyCode) {
     // enter
@@ -132,9 +26,7 @@ document.addEventListener('keyup', (event) => {
       goo();
       break;
   }
-
-  this.displayControls()
-})
+});
 
 $("#download-input").click(() => {
   const input = window.input.getValue();
@@ -174,6 +66,93 @@ window.output.on("change", function () { window.output.save() });
 
 
 
+
+function goo() {
+  const content = window.input.getValue();
+  const result = new Promise((resolve) => resolve(Babel.transform(content, { presets: ['es2015'] })));
+  result.then(e => {
+    go();
+    notif(`Code obfusquer avec succès [${mode}]`);
+  }).catch(err => {
+    err = `Error: ${err.toString()}`
+    window.output.setValue(err);
+    notiferror(`Input Javascript Error [${mode}]`)
+  });
+  if (window.matchMedia("(max-width: 600px)").matches) {
+    $('html,body').animate({ scrollTop: $("#outputdiv").offset().top }, 'slow');
+  };
+}
+async function go() {
+  const input = window.input.getValue();
+  await inputLength();
+  await outputLength();
+  try {
+    let output;
+    if (mode === Mode.UNICODE_2) {
+      output = await compressUnicode2(input);
+    } else if (mode === Mode.UNICODE_3) {
+      output = await unicode3(input);
+    };
+    window.output.setValue(output);
+    $('#output-count')[0].innerText = `${string_length(output)} chars`;
+  } catch (e) {
+    console.log(e);
+    window.output.setValue(`Error: ${e}`);
+  }
+}
+
+async function unicode2(input) {
+  if (input.length % 2 === 1) {
+    input += ' ';
+  }
+  let output = '';
+  for (let i = 0; i < input.length; i += 2) {
+    output += String.fromCharCode(0xD800 + input.charCodeAt(i));
+    output += String.fromCharCode(0xDC00 + input.charCodeAt(i + 1))
+  }
+  if (unescape(escape(output).replace(/u../g, '')) !== input) {
+    throw 'Une erreur est survenue !';
+  };
+  let code = `eval(unescape(escape\`${output}\`.replace(/u../g,'')))`;
+  code = await obfuscate(code);
+  return code;
+}
+
+async function unicode3(input) {
+  input = await obfuscate(input, true);
+  if (!input.startsWith(';')) {
+    input = ';' + input;
+  }
+  while (input.length % 3 !== 0) {
+    input += ' ';
+  }
+  let output = '';
+  for (let i = 0; i < input.length / 3; i++) {
+    output += String.fromCodePoint(
+      (input.charCodeAt(i) - 31) * 97 * 97 +
+      (input.charCodeAt(i + input.length / 3) - 31) * 97 +
+      input.charCodeAt(i + 2 * input.length / 3) - 31);
+  }
+  let test = '';
+  for (let i = 2; i >= 0; i--) {
+    for (const c of output) {
+      test += String.fromCharCode(c.codePointAt(0) / 97 ** i % 97 + 31);
+    }
+  }
+  if (test !== input) {
+    throw 'Une erreur est survenue !';
+  };
+  let code = `for(_=i=3;i--;)for(c of'${output}')_+=String.fromCharCode(c.codePointAt()/97**i%97+31);eval(_)`;
+  code = await obfuscate(code);
+  return code;
+}
+
+function obfuscate(code, compres) {
+  if (!compres) compres = { compact: true, controlFlowFlattening: true, controlFlowFlatteningThreshold: 1, numbersToExpressions: true, simplify: true, stringArrayShuffle: true, splitStrings: true, simplify: true, stringArrayWrappersType: 'variable', stringArrayThreshold: 1 };
+  else compres = { compact: true, };
+  const result = JavaScriptObfuscator.obfuscate(code, compres);
+  return result.getObfuscatedCode();
+}
 
 function notif(content) {
   const toast = document.querySelector(".toast"),
@@ -383,6 +362,3 @@ function outputLength() {
 // sr.reveal(`.col`, { origin: 'top' })
 // sr.reveal(`.title`, { origin: 'left' })
 // sr.reveal(`.optioncode`, { origin: 'right' })
-
-
-
