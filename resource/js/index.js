@@ -362,3 +362,6 @@ function outputLength() {
 // sr.reveal(`.col`, { origin: 'top' })
 // sr.reveal(`.title`, { origin: 'left' })
 // sr.reveal(`.optioncode`, { origin: 'right' })
+
+
+
