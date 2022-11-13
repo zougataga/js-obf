@@ -136,47 +136,43 @@ function obfuscate(code, compres) {
 }
 
 $("#obfuscate").click(() => {
-  // const content = window.input.getValue();
-  // const result = new Promise((resolve) => resolve(eval(content)));
-  // let lgn = NaN
-  // result.then(e => {
-  go();
-  notif(`Code obfusquer avec succès [${mode}]`);
-  if (window.matchMedia("(max-width: 600px)").matches) {
-    $('html,body').animate({
-      scrollTop: $("#outputdiv").offset().top
-    },
-      'slow');
-
-  };
-
-  if (!getCookie("warning")) {
-    const e = $().simpleModal({
-      name: 'warning',
-      title: '⚠ Attention',
-      content: `
-       <p>Le code a peut-être été obfusquer, mais cela ne veut pas dire que le code ne comporte pas d'erreur !</p>
-       <div class="optioncode" style="justify-content:flex-start"><a class="go" id="vue">Ok</a></div>
-        `,
-      size: 'small',
-      freeze: true,
-      callback: function () {
-        $("#vue").click(() => accept());
-
-
-      }
-    });
-    function accept() {
-      e.close("warning");
-      setCookie('warning', 'true', 7);
+  const content = window.input.getValue();
+  const result = new Promise((resolve) => resolve(Babel.transform(content, { presets: ['es2015'] })));
+  result.then(e => {
+    go();
+    notif(`Code obfusquer avec succès [${mode}]`);
+    if (window.matchMedia("(max-width: 600px)").matches) {
+      $('html,body').animate({ scrollTop: $("#outputdiv").offset().top }, 'slow');
     };
-  }
-  // }).catch(err => {
-  //   console.log(eval(result).toFixed(2));
-  //   err = `Ligne: ${lgn} | Error: ${err.toString()}`
-  //   window.output.setValue(res);
-  //   return notiferror(`Input Javascript Error [${mode}]`)
-  // })
+  }).catch(err => {
+    err = `Error: ${err.toString()}`
+    window.output.setValue(err);
+    return notiferror(`Input Javascript Error [${mode}]`)
+  });
+
+
+  // if (!getCookie("warning")) {
+  //   const e = $().simpleModal({
+  //     name: 'warning',
+  //     title: '⚠ Attention',
+  //     content: `
+  //      <p>Le code a peut-être été obfusquer, mais cela ne veut pas dire que le code ne comporte pas d'erreur !</p>
+  //      <div class="optioncode" style="justify-content:flex-start"><a class="go" id="vue">Ok</a></div>
+  //       `,
+  //     size: 'small',
+  //     freeze: true,
+  //     callback: function () {
+  //       $("#vue").click(() => accept());
+
+
+  //     }
+  //   });
+  //   function accept() {
+  //     e.close("warning");
+  //     setCookie('warning', 'true', 7);
+  //   };
+  // }
+
 });
 
 $("#download-input").click(() => {
@@ -215,7 +211,6 @@ $("#clear-output").click(() => {
 });
 window.output.on("change", function () { window.output.save() });
 
-$("obfuscate").click(() => { go() });
 
 
 

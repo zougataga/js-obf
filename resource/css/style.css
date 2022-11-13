@@ -332,7 +332,7 @@ a {
     transform: translateX(0%);
 }
 
-.toasterror .toast-content,
+.toasterror .toasterror-content,
 .toast .toast-content {
     display: flex;
     align-items: center;
