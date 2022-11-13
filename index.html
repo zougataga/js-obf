@@ -1,0 +1,102 @@
+<!-- llx404 on github -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+
+    <title>ZOUGATAGA | JS Obfuscator</title>
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+
+    <meta data-react-helmet="true" charset="utf-8" />
+    <meta data-react-helmet="true" property="og:title" content="ZOUGATAGA | JS Obfuscator" />
+    <meta data-react-helmet="true" property="og:description"
+        content="Javascript obfuscator" />
+    <meta data-react-helmet="true" name="description"
+        content="Javascript obfuscator" />
+    <meta data-react-helmet="true" property="og:image" content="https://zougataga-jsobfuscator.herokuapp.com/img/favicon.ico" />
+    <meta data-react-helmet="true" property="twitter:image" content="https://zougataga-jsobfuscator.herokuapp.com/img/favicon.ico" />
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff" data-react-helmet="true">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/modal.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link href="/css/codemirror.css" rel="stylesheet" type="text/css">
+    <script src="/js/codemirror.js"></script>
+    <script src="/js/javascript.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/javascript-obfuscator/dist/index.browser.js"></script>
+</head>
+
+<body>
+    <div class="toast"><div class="toast-content"><i class="fas fa-solid fa-check check"></i><div class="message"><span class="text text-1">Success</span><span class="text text-2"></span></div></div> <i class="fa-solid fa-xmark closetoast"></i><div class="progress"></div></div>
+    <div class="toasterror"><div class="toasterror-content"><i class="fa-solid fa-xmark check"></i><div class="message"><span class="text text-1">Error</span><span class="text text-4"></span></div></div><i class="fa-solid fa-xmark closetoasterror"></i><div class="progresserror"></div></div>
+
+    <!-- <nav class="settings">
+        <ul>
+            <li id="open-modal"><a>Settings <i class="fa fa-gear"></i></a></li>
+        </ul>
+    </nav> -->
+
+    <main>
+        <center>
+            <h1 class="title">
+                ZOUGATAGA | JS Obfuscator
+                <a class="github-link" href="https://github.com/zougataga">
+                    <svg viewBox="0 0 16 16" class="icon">
+                        <path fill-rule="evenodd"
+                            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z">
+                        </path>
+                    </svg>
+                </a>
+            </h1><br>
+            <div class="optioncode">
+                <a class="para" id="open-modal">Settings</a>
+            </div><br>
+        </center>
+
+        <div class="row">
+            <div class="col">
+                <label for="input">
+                    <div class="optioncode">
+                        <a id="copy-input">Copy</a>
+                        <a id="download-input">Download</a>
+                        <a class="clear" id="clear-input">Clear</a>
+                        <a class="go" href="#output" id="obfuscate">Obfuscate</a>
+                    </div>
+                </label>
+                <textarea id="input" rows="6" autocomplete="off" autocorrect="off" autocapitalize="off"
+                    spellcheck="false">// TON CODE
+
+function hi() {
+  console.log("Hello World!");
+}
+hi();</textarea>
+                <div class="flex-grow">Input: <span id="input-count"></span></div>
+
+            </div>
+            <div class="col">
+                <label for="output">
+                    <div class="optioncode">
+                        <a id="copy-output">Copy</a>
+                        <a id="download-output">Download</a>
+                        <a class="clear" id="clear-output">Clear</a>
+                    </div>
+                </label>
+                <textarea id="output" rows="6" readonly>// RESULTAT</textarea>
+                <div class="flex">
+                    <div class="flex-grow">Output: <span id="output-count"></span></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+    <script src="/js/modal.js"></script>
+    <script src="/js/index.js"></script>
+</body>
+
+</html>
