@@ -2,15 +2,22 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-
+    width: 100%;
+    margin: 75px auto;
     background-color: #121212;
     color: white;
-    max-width: 100%;
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
 }
-body,html {
-  overflow-x:hidden;
+
+body,
+html {
+    overflow-x: hidden;
 }
+
+.flex-grow span {
+    color: #1c690f;
+}
+
 /* .CodeMirror {
     border-radius: 5px;
     background: #1a1a1a;
@@ -33,11 +40,12 @@ main {
 }
 
 .optioncode {
-
+    text-align: center;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
 }
+
 
 .optioncode a {
     cursor: pointer;
@@ -302,41 +310,48 @@ a {
 }
 
 
+.toasterror,
 .toast {
-    position: absolute;
+    z-index: 19999;
+    display: none;
+    transform: translateX(calc(100% + 200px));
+    position: fixed;
     top: 25px;
     right: 30px;
     border-radius: 12px;
     background: #1a1a1a;
     padding: 20px 35px 20px 25px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    border-left: 6px solid #0351a8;
+    border-left: 6px solid #2ea819;
     overflow: hidden;
-    transform: translateX(calc(100% + 60px));
     transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.35);
 }
 
+.toasterror.active,
 .toast.active {
     transform: translateX(0%);
 }
 
+.toasterror .toast-content,
 .toast .toast-content {
     display: flex;
     align-items: center;
 }
 
+.toasterror-content .check,
 .toast-content .check {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 35px;
     width: 35px;
-    background-color: #0351a8;
+    background-color: #2ea819;
     color: #fff;
     font-size: 20px;
     border-radius: 50%;
 }
 
+.toasterror-content .message,
 .toast-content .message {
     display: flex;
     flex-direction: column;
@@ -355,6 +370,7 @@ a {
     color: #ccc;
 }
 
+.toasterror .closetoast,
 .toast .closetoast {
     position: absolute;
     top: 10px;
@@ -364,10 +380,12 @@ a {
     opacity: 0.7;
 }
 
+.toasterror .closetoast:hover,
 .toast .closetoast:hover {
     opacity: 1;
 }
 
+.toasterror .progress,
 .toast .progress {
     position: absolute;
     bottom: 0;
@@ -376,7 +394,7 @@ a {
     width: 100%;
     background: #1a1a1a;
 }
-
+.toasterror .progress:before,
 .toast .progress:before {
     content: '';
     position: absolute;
@@ -384,7 +402,7 @@ a {
     right: 0;
     height: 100%;
     width: 100%;
-    background-color: #0351a8;
+    background-color: #2ea819;
 }
 
 .progress.active:before {
@@ -398,101 +416,22 @@ a {
 }
 
 
-.toast.active~button {
-    pointer-events: none;
-}
-
-
-
 
 .toasterror {
-    position: absolute;
-    top: 25px;
-    right: 30px;
-    border-radius: 12px;
-    background: #1a1a1a;
-    padding: 20px 35px 20px 25px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     border-left: 6px solid #c13a3a;
-    overflow: hidden;
-    transform: translateX(calc(100% + 60px));
-    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.35);
-}
-
-.toasterror.active {
-    transform: translateX(0%);
-}
-
-.toasterror .toasterror-content {
-    display: flex;
-    align-items: center;
 }
 
 .toasterror-content .check {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 35px;
-    width: 35px;
-    background-color: #c13a3a;
-    color: #fff;
-    font-size: 20px;
-    border-radius: 50%;
-}
-
-.toasterror-content .message {
-    display: flex;
-    flex-direction: column;
-    margin: 0 20px;
-}
-
-
-.message .text.text-3 {
-    font-weight: 600;
-    color: #ccc;
-}
-
-.toasterror .closetoasterror {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    padding: 5px;
-    cursor: pointer;
-    opacity: 0.7;
-}
-
-.toasterror .closetoasterror:hover {
-    opacity: 1;
-}
-
-.toasterror .progresserror {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 3px;
-    width: 100%;
-    background: #1a1a1a;
-}
-
-.toasterror .progresserror:before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    height: 100%;
-    width: 100%;
     background-color: #c13a3a;
 }
 
-.progresserror.active:before {
-    animation: progress 5s linear forwards;
+.toasterror .progress:before {
+    background-color: #c13a3a;
 }
 
-.toasterror,
-.toast {
-    display: none;
-    transform: translateX(calc(100% + 200px));
-}
+
+
+
 
 
 /* 

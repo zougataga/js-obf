@@ -41,11 +41,11 @@ function string_length(string) {
 }
 function inputLength() {
   const input = window.input.getValue();
-  $('#input-count')[0].innerText = `${string_length(input)} chars`;
+  $('#input-count')[0].innerText = `${string_length(input)} caractère`;
 }
 function outputLength() {
   const output = window.output.getValue();
-  $('#output-count')[0].innerText = `${string_length(output)} chars`;
+  $('#output-count')[0].innerText = `${string_length(output)} caractère`;
 }
 async function go() {
   const input = window.input.getValue();
@@ -66,24 +66,17 @@ async function go() {
   }
 }
 
-
-
 async function compressUnicode2(input) {
-  // for (const char of input) {
-  //   if (char.charCodeAt(0) > 255) {
-  //     throw 'Input must contain only characters 0-255';
-  //   }
-  // }
   if (input.length % 2 === 1) {
     input += ' ';
   }
   let output = '';
   for (let i = 0; i < input.length; i += 2) {
     output += String.fromCharCode(0xD800 + input.charCodeAt(i));
-    output += String.fromCharCode(0xDC00 + input.charCodeAt(i + 1));
+    output += String.fromCharCode(0xDC00 + input.charCodeAt(i + 1))
   }
   if (unescape(escape(output).replace(/u../g, '')) !== input) {
-    throw 'Failed to compress';
+    throw 'Une erreur est survenue !';
   };
   let code = `eval(unescape(escape\`${output}\`.replace(/u../g,'')))`;
   code = await obfuscate(code);
@@ -91,12 +84,6 @@ async function compressUnicode2(input) {
 }
 
 async function compressUnicode3(input) {
-  // for (const char of input) {
-  //   const charCode = char.charCodeAt(0);
-  //   if (charCode < 32 || charCode > 127) {
-  //     throw "Caractères maximale: 127";
-  //   }
-  // }
   input = await obfuscate(input, true);
   if (!input.startsWith(';')) {
     input = ';' + input;
@@ -118,8 +105,8 @@ async function compressUnicode3(input) {
     }
   }
   if (test !== input) {
-    throw 'Failed to compress';
-  }
+    throw 'Une erreur est survenue !';
+  };
   let code = `for(_=i=3;i--;)for(c of'${output}')_+=String.fromCharCode(c.codePointAt()/97**i%97+31);eval(_)`;
   code = await obfuscate(code);
   return code;
@@ -155,6 +142,14 @@ $("#obfuscate").click(() => {
   // result.then(e => {
   go();
   notif(`Code obfusquer avec succès [${mode}]`);
+  if (window.matchMedia("(max-width: 600px)").matches) {
+    $('html,body').animate({
+      scrollTop: $("#outputdiv").offset().top
+    },
+      'slow');
+
+  };
+
   if (!getCookie("warning")) {
     const e = $().simpleModal({
       name: 'warning',
@@ -226,7 +221,7 @@ $("obfuscate").click(() => { go() });
 
 function notif(content) {
   const toast = document.querySelector(".toast"),
-    progress = document.querySelector(".progress");
+    progress = document.querySelector(".toast .progress");
 
   $(".text-2").text(content);
   toast.style.display = "block";
@@ -247,7 +242,7 @@ function notif(content) {
       toast.style.display = "none";
     }, 5300);
 
-    $(".closetoast").click(() => {
+    $("#closetoastsucces").click(() => {
       toast.classList.remove("active");
 
       setTimeout(() => {
@@ -262,7 +257,7 @@ function notif(content) {
 };
 function notiferror(content) {
   const toast = document.querySelector(".toasterror"),
-    progress = document.querySelector(".progresserror");
+    progress = document.querySelector(".toasterror .progress");
   toast.style.display = "block";
   $(".text-4").text(content);
   setTimeout(() => {
@@ -280,7 +275,7 @@ function notiferror(content) {
       toast.style.display = "none";
     }, 5300);
 
-    $(".closetoasterror").click(() => {
+    $("#closetoasterror").click(() => {
       toast.classList.remove("active");
 
       setTimeout(() => {
@@ -349,7 +344,7 @@ $(document).ready(() => {
     const divWidth = (e.offsetWidth) + "px";
     e.style.maxWidth = divWidth;
   });
-  if(getCookMode()) {
+  if (getCookMode()) {
     mode = getCookMode()
   }
 });
@@ -394,3 +389,16 @@ function getCookie(name) {
 
 //   // window.location.reload();
 // }
+
+
+// scroll reveal
+// const sr = ScrollReveal({
+//   distance: '60px',
+//   interval: 50,
+// });
+// sr.reveal(`.col`, { origin: 'top' })
+// sr.reveal(`.title`, { origin: 'left' })
+// sr.reveal(`.optioncode`, { origin: 'right' })
+
+
+
