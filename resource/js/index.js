@@ -19,33 +19,20 @@ outputLength();
 
 let mode = Mode.UNICODE_2;
 
-function string_length(string) {
-  let chars = 0;
-  let counter = 0;
-  const length = string.length;
-  while (counter < length) {
-    const value = string.charCodeAt(counter++);
-    if (value >= 0xD800 && value <= 0xDBFF && counter < length) {
-      const extra = string.charCodeAt(counter++);
-      if ((extra & 0xFC00) == 0xDC00) { // Low surrogate.
-        chars++;
-      } else {
-        chars++;
-        counter--;
-      }
-    } else {
-      chars++;
-    }
-  }
-  return chars;
-}
-function inputLength() {
-  const input = window.input.getValue();
-  $('#input-count')[0].innerText = `${string_length(input)} caractère`;
-}
-function outputLength() {
-  const output = window.output.getValue();
-  $('#output-count')[0].innerText = `${string_length(output)} caractère`;
+function goo() {
+  const content = window.input.getValue();
+  const result = new Promise((resolve) => resolve(Babel.transform(content, { presets: ['es2015'] })));
+  result.then(e => {
+    go();
+    notif(`Code obfusquer avec succès [${mode}]`);
+  }).catch(err => {
+    err = `Error: ${err.toString()}`
+    window.output.setValue(err);
+    notiferror(`Input Javascript Error [${mode}]`)
+  });
+  if (window.matchMedia("(max-width: 600px)").matches) {
+    $('html,body').animate({ scrollTop: $("#outputdiv").offset().top }, 'slow');
+  };
 }
 async function go() {
   const input = window.input.getValue();
@@ -136,44 +123,18 @@ function obfuscate(code, compres) {
 }
 
 $("#obfuscate").click(() => {
-  const content = window.input.getValue();
-  const result = new Promise((resolve) => resolve(Babel.transform(content, { presets: ['es2015'] })));
-  result.then(e => {
-    go();
-    notif(`Code obfusquer avec succès [${mode}]`);
-    if (window.matchMedia("(max-width: 600px)").matches) {
-      $('html,body').animate({ scrollTop: $("#outputdiv").offset().top }, 'slow');
-    };
-  }).catch(err => {
-    err = `Error: ${err.toString()}`
-    window.output.setValue(err);
-    return notiferror(`Input Javascript Error [${mode}]`)
-  });
-
-
-  // if (!getCookie("warning")) {
-  //   const e = $().simpleModal({
-  //     name: 'warning',
-  //     title: '⚠ Attention',
-  //     content: `
-  //      <p>Le code a peut-être été obfusquer, mais cela ne veut pas dire que le code ne comporte pas d'erreur !</p>
-  //      <div class="optioncode" style="justify-content:flex-start"><a class="go" id="vue">Ok</a></div>
-  //       `,
-  //     size: 'small',
-  //     freeze: true,
-  //     callback: function () {
-  //       $("#vue").click(() => accept());
-
-
-  //     }
-  //   });
-  //   function accept() {
-  //     e.close("warning");
-  //     setCookie('warning', 'true', 7);
-  //   };
-  // }
-
+  goo()
 });
+document.addEventListener('keyup', (event) => {
+  switch (event.keyCode) {
+    // enter
+    case 13:
+      goo();
+      break;
+  }
+
+  this.displayControls()
+})
 
 $("#download-input").click(() => {
   const input = window.input.getValue();
@@ -361,6 +322,34 @@ function getCookie(name) {
     if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
   }
   return null;
+}
+function string_length(string) {
+  let chars = 0;
+  let counter = 0;
+  const length = string.length;
+  while (counter < length) {
+    const value = string.charCodeAt(counter++);
+    if (value >= 0xD800 && value <= 0xDBFF && counter < length) {
+      const extra = string.charCodeAt(counter++);
+      if ((extra & 0xFC00) == 0xDC00) { // Low surrogate.
+        chars++;
+      } else {
+        chars++;
+        counter--;
+      }
+    } else {
+      chars++;
+    }
+  }
+  return chars;
+}
+function inputLength() {
+  const input = window.input.getValue();
+  $('#input-count')[0].innerText = `${string_length(input)} caractère`;
+}
+function outputLength() {
+  const output = window.output.getValue();
+  $('#output-count')[0].innerText = `${string_length(output)} caractère`;
 }
 // window.addEventListener("resize", resizeAlert(), false);
 // function resizeAlert() {
