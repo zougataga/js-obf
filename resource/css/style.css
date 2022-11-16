@@ -468,4 +468,8 @@ a {
     border: 2px solid transparent;
     background-clip: content-box;
     background-color: rgb(68, 68, 68)
+}#settingstitle {
+    color: #ccc;
+    font-weight: 500;
+    margin: 5px;
 }

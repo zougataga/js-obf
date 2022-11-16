@@ -7,7 +7,7 @@ app.use(express.static(__dirname + '/resource'));
 
 
 app.get("/", (req, res) => {
-    res.sendFile("./index.html", {root: "./"})
+    res.sendFile("./index.html", {root: "./"});
 });
 
 app.listen(PORT, () => {

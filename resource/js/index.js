@@ -89,11 +89,11 @@ async function go() {
   try {
     let output;
     if (mode === Mode.UNICODE_2) {
-      output = await compressUnicode2(input);
+      output = await unicode2(input);
     } else if (mode === Mode.UNICODE_3) {
       output = await unicode3(input);
     };
-    window.output.setValue(output);
+    window.output.setValue(`// @{Author}: https://github.com/zougataga\n// @{JS-Obfuscator}: https://github.com/zougataga/js-obfuscator\n\n${output}`);
     $('#output-count')[0].innerText = `${string_length(output)} chars`;
   } catch (e) {
     console.log(e);
@@ -242,7 +242,7 @@ $("#open-modal").click(() => {
     name: 'settings',
     title: 'Settings',
     content: `
-    <span style="font-weight:500">- Unicode</span>
+    <p id="settingstitle">1. Unicode</p>
     <div class="mode-selector">
     ${!getCookMode() || getCookMode() == Mode.UNICODE_2 ? `
     <input id="mode-unicode-2" type="radio" name="mode" value="unicode-2" checked>
@@ -260,8 +260,14 @@ $("#open-modal").click(() => {
     size: 'small',
     freeze: true,
     callback: function () {
-      $("#mode-unicode-2").change(() => setMode(Mode.UNICODE_2));
-      $("#mode-unicode-3").change(() => setMode(Mode.UNICODE_3));
+      $("#mode-unicode-2").change(async () => {
+        await setMode(Mode.UNICODE_2);
+        goo();
+      });
+      $("#mode-unicode-3").change(async () => {
+        await setMode(Mode.UNICODE_3);
+        goo();
+      });
     }
   })
 });
@@ -281,6 +287,8 @@ $(document).ready(() => {
   });
   if (getCookMode()) {
     mode = getCookMode()
+  } else {
+    setMode(Mode.UNICODE_3);
   }
 });
 function setCookie(name, value, days) {
