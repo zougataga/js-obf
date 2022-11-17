@@ -10,14 +10,12 @@
     <title>ZOUGATAGA | JS Obfuscator</title>
     <link rel="shortcut icon" href="/img/favicon.png" type="image/x-icon">
 
-    <meta name="description"
-        content="Javascript oubfscator." />
-    <meta property="og:title" content=">ZOUGATAGA | JS Obfuscator" />
-    <meta property="og:site_name" content="zougataga">
+    <meta name="description" content="Un <strong>obfuscator Javascript</strong> puissant pour rendre votre code illisible mais fonctionnelle 😎." />
+    <meta property="og:title" content="JS Obfuscator" />
+    <meta property="og:site_name" content="https://github/zougataga/js-obfuscator">
     <meta property="og:type" content="website" />
-    <meta name="theme-color" content="#fff" />
-    <meta property="og:description"
-    content="Javascript oubfscator." />
+    <meta name="theme-color" content="#383a59" />
+    <meta property="og:description" content="Un <strong>obfuscator Javascript</strong> puissant pour rendre votre code illisible mais fonctionnelle 😎." />
     <meta property="og:image:type" content="image/jpeg" />
 
     <link rel="stylesheet" href="/css/style.css">
@@ -33,6 +31,7 @@
 </head>
 
 <body>
+    <canvas id="canvas"></canvas>
     <div class="toast">
         <div class="toast-content"><i class="fas fa-solid fa-check check"></i>
             <div class="message"><span class="text text-1">Success</span><span class="text text-2"></span></div>
@@ -54,7 +53,7 @@
 
     <main>
         <h1 class="title">
-            ZOUGATAGA | JS Obfuscator
+            JS Obfuscator
             <a class="github-link" target="_blank" href="https://github.com/zougataga/js-obfuscator">
                 <svg viewBox="0 0 16 16" class="icon">
                     <path fill-rule="evenodd"
@@ -62,7 +61,15 @@
                     </path>
                 </svg>
             </a>
-        </h1><br>
+        </h1>
+        <p class="descr">Un <strong>obfuscator Javascript</strong> puissant pour rendre votre code illisible mais
+            fonctionnelle 😎. <a style="margin: 0;" class="para" id="open-modal">Settings</a></p>
+
+        <p class="credits">Made with <span class="love">♥</span> by
+            <!-- -->
+            <a class="green" href="https://github.com/zougataga" target="blank">Zougataga</a>
+            <!-- -->
+        </p><br>
 
 
         <div class="row">
@@ -72,7 +79,6 @@
                         <a id="copy-input">Copy</a>
                         <a id="download-input">Download</a>
                         <a class="clear" id="clear-input">Clear</a>
-                        <a class="para" id="open-modal">Settings</a>
                         <a class="go" id="obfuscate">Obfuscate</a>
                     </div>
                 </label>
@@ -83,7 +89,9 @@ function hi() {
   console.log("Hello World!");
 }
 hi();</textarea>
-                <div class="flex-grow">Input: <span id="input-count"></span></div>
+                <div class="flex-grow">
+                    Input: <span id="input-count"></span>
+                </div>
 
             </div>
             <div class="col" id="outputdiv">
@@ -100,10 +108,13 @@ hi();</textarea>
                 </div>
             </div>
         </div>
+
+
     </main>
 
     <script src="/js/modal.js"></script>
     <script src="/js/index.js"></script>
+    <script src="/js/fond.js"></script>
 </body>
 
 </html>

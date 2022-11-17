@@ -1,10 +1,15 @@
+html {
+    height: 100%;
+}
+
+
 body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin: 75px auto;
-    background-color: #121212;
+    position: relative;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+
+    background-color: #383a59;
     color: white;
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
 }
@@ -15,20 +20,24 @@ html {
 }
 
 .flex-grow span {
-    color: #1c690f;
+    color: #50fa7b;
+}
+
+.flex-grow span.non {
+    color: #c13a3a;
 }
 
 /* .CodeMirror {
     border-radius: 5px;
-    background: #1a1a1a;
+    background: #282a36;
     border-bottom: 1px solid #ccc;
 }
 .CodeMirror-gutters {
-    background-color: #1a1a1a;
+    background-color: #282a36;
 } */
 
 main {
-    width: calc(1200px - 3em);
+    width: calc(1400px - 3em);
     margin: 0 auto;
 }
 
@@ -40,26 +49,30 @@ main {
 }
 
 .optioncode {
-    text-align: center;
     display: flex;
     align-items: center;
     justify-content: flex-start;
 }
 
-
+a.para,
 .optioncode a {
     cursor: pointer;
     color: #fff;
+    /* text-shadow: 0 .125rem 0 rgba(0, 0, 0, .25); */
     border-radius: 5px;
-    background: #0366d6;
+    background: #6272a4;
     padding: 5px;
     transition: all 0.3s ease;
     margin: 5px;
     font-weight: 500;
 }
 
+.github-link:hover {
+    color: #515e87;
+}
+
 .optioncode a:hover {
-    background: #0351a8;
+    background: #515e87;
 }
 
 .optioncode a.clear {
@@ -71,18 +84,21 @@ main {
 }
 
 .optioncode a.go {
-    background: #2ea819;
+    background: #50fa7b;
 }
 
 .optioncode a.go:hover {
-    background: #1c690f;
+    background: #40cf64;
 }
 
-.optioncode a.para {
+a.para {
+    padding-top: 1.5px;
+    padding-left: 5px;
+    padding-right: 5px;
     background: #696161;
 }
 
-.optioncode a.para:hover {
+a.para:hover {
     background: #383434;
 }
 
@@ -172,8 +188,17 @@ main {
 
 
 .title {
-    text-align: center;
+    margin: 0;
+    margin-top: 80px;
     display: inline-block;
+}
+
+p {
+    margin: 0;
+}
+
+.descr {
+    color: #aaa
 }
 
 .row {
@@ -204,9 +229,9 @@ main {
     resize: vertical;
     display: block;
     box-sizing: border-box;
-    border: 1px solid #888;
+    border: 5px solid #a4b0be;
     padding: 0.5em 1em;
-    border-radius: 0.4em;
+    border-radius: 10px;
     outline: none !important;
     word-break: break-all;
 
@@ -228,9 +253,6 @@ main {
     transition: color 0.3s ease;
 }
 
-.github-link:hover {
-    color: #0366d6;
-}
 
 .flex {
     display: flex;
@@ -247,14 +269,26 @@ main {
 
 
 a {
-    color: #0366d6;
+    color: #50fa7b;
     text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.credits a:hover {
+    color: #40cf64;
 }
 
 
 
 
-
+#canvas {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none
+}
 
 .settings {
     position: fixed;
@@ -272,7 +306,7 @@ a {
     cursor: pointer;
     display: block;
     margin: 5px;
-    background: #1a1a1a;
+    background: #282a36;
     width: 300px;
     text-align: right;
     padding: 10px;
@@ -291,7 +325,7 @@ a {
 
 /* .settings ul li:hover i {
     color: #fff;
-    background: #1a1a1a;
+    background: #282a36;
     transform: rotate(360deg);
     transition: all 1s;
 } */
@@ -319,10 +353,10 @@ a {
     top: 25px;
     right: 30px;
     border-radius: 12px;
-    background: #1a1a1a;
+    background: #282a36;
     padding: 20px 35px 20px 25px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    border-left: 6px solid #2ea819;
+    border-left: 6px solid #50fa7b;
     overflow: hidden;
     transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.35);
 }
@@ -345,7 +379,7 @@ a {
     justify-content: center;
     height: 35px;
     width: 35px;
-    background-color: #2ea819;
+    background-color: #50fa7b;
     color: #fff;
     font-size: 20px;
     border-radius: 50%;
@@ -392,8 +426,9 @@ a {
     left: 0;
     height: 3px;
     width: 100%;
-    background: #1a1a1a;
+    background: #282a36;
 }
+
 .toasterror .progress:before,
 .toast .progress:before {
     content: '';
@@ -402,7 +437,7 @@ a {
     right: 0;
     height: 100%;
     width: 100%;
-    background-color: #2ea819;
+    background-color: #50fa7b;
 }
 
 .progress.active:before {
@@ -468,8 +503,92 @@ a {
     border: 2px solid transparent;
     background-clip: content-box;
     background-color: rgb(68, 68, 68)
-}#settingstitle {
+}
+
+#settingstitle {
     color: #ccc;
     font-weight: 500;
     margin: 5px;
+}
+
+.flex-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+
+.flex-container .left h2 {
+    max-width: 759px;
+    color: #717478;
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 5px;
+}
+
+.flex-container .right {
+    width: 118px;
+    height: auto;
+    -ms-flex-item-align: start;
+    align-self: flex-start;
+}
+
+.flex-container .right img {
+    max-width: 100%;
+}
+
+@media (max-width: 675px) {
+    .flex-container {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-align: start;
+        -ms-flex-align: start;
+        align-items: flex-start;
+    }
+
+    .flex-container .right {
+        margin-top: 20px;
+    }
+}
+
+
+
+footer {
+    position: absolute;
+
+    color: #fff;
+}
+
+
+.credits {
+    font-size: 1.3em;
+    margin: 0;
+}
+
+.credits .love {
+    display: inline-block;
+    position: relative;
+    top: 0.2em;
+    font-size: 1.4em;
+    color: rgb(255, 121, 198);
+    transform: scale(.9);
+    animation: love .5s linear infinite alternate-reverse;
+}
+
+@keyframes love {
+    to {
+        transform: scale(1.1);
+    }
 }

@@ -19,14 +19,14 @@ let mode = Mode.UNICODE_2;
 
 
 $("#obfuscate").click(() => goo());
-document.addEventListener('keyup', (event) => {
-  switch (event.keyCode) {
-    // enter
-    case 13:
-      goo();
-      break;
-  }
-});
+// document.addEventListener('keyup', (event) => {
+//   switch (event.keyCode) {
+//     // enter
+//     case 13:
+//       goo();
+//       break;
+//   }
+// });
 
 $("#download-input").click(() => {
   const input = window.input.getValue();
@@ -69,6 +69,11 @@ window.output.on("change", function () { window.output.save() });
 
 function goo() {
   const content = window.input.getValue();
+  const length = string_length(content);
+  if (length <= 0) {
+    notiferror("Merci d'entrer du code dans l'input")
+    return;
+  };
   const result = new Promise((resolve) => resolve(Babel.transform(content, { presets: ['es2015'] })));
   result.then(e => {
     go();
@@ -113,7 +118,7 @@ async function unicode2(input) {
   if (unescape(escape(output).replace(/u../g, '')) !== input) {
     throw 'Une erreur est survenue !';
   };
-  let code = `eval(unescape(escape\`${output}\`.replace(/u../g,'')))`;
+  let code = `let _ = unescape(escape\`${output}\`.replace(/u../g,''))\neval(_)`;
   code = await obfuscate(code);
   return code;
 }
@@ -289,6 +294,7 @@ $(document).ready(() => {
     mode = getCookMode()
   } else {
     setMode(Mode.UNICODE_3);
+    notif("Unicode 3 définit avec succès !")
   }
 });
 function setCookie(name, value, days) {
@@ -332,11 +338,23 @@ function string_length(string) {
 }
 function inputLength() {
   const input = window.input.getValue();
-  $('#input-count')[0].innerText = `${string_length(input)} caractère`;
+  const count = $('#input-count')[0];
+  const length = string_length(input);
+
+  if (length <= 0) count.classList.add("non");
+  else count.classList.remove("non");
+
+  count.innerText = `${length} caractère${length <= 1 ? "" : "s"}`;
 }
 function outputLength() {
   const output = window.output.getValue();
-  $('#output-count')[0].innerText = `${string_length(output)} caractère`;
+  const count = $('#output-count')[0];
+  const length = string_length(output);
+
+  if (length <= 0) count.classList.add("non");
+  else count.classList.remove("non");
+
+  count.innerText = `${length} caractère${length <= 1 ? "" : "s"}`;
 }
 // window.addEventListener("resize", resizeAlert(), false);
 // function resizeAlert() {
