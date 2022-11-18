@@ -8,6 +8,7 @@ const outputInvisible = document.querySelector("#outpout");
 const allCodeMirror = document.querySelectorAll(".CodeMirror");
 
 const Mode = {
+  UNICODE_1: "unicode-1",
   UNICODE_2: 'unicode-2',
   UNICODE_3: 'unicode-3'
 };
@@ -91,24 +92,34 @@ async function go() {
   const input = window.input.getValue();
   await inputLength();
   await outputLength();
+  let output;
   try {
-    let output;
-    if (mode === Mode.UNICODE_2) {
+    if (mode === Mode.UNICODE_1) {
+      output = await unicode1(input);
+    } else if (mode === Mode.UNICODE_2) {
       output = await unicode2(input);
     } else if (mode === Mode.UNICODE_3) {
       output = await unicode3(input);
-    };
-    window.output.setValue(`// @{Author}: https://github.com/zougataga\n// @{JS-Obfuscator}: https://github.com/zougataga/js-obfuscator\n\n${output}`);
-    $('#output-count')[0].innerText = `${string_length(output)} chars`;
+    }
   } catch (e) {
-    console.log(e);
-    window.output.setValue(`Error: ${e}`);
+    output = await obfuscate(input);
+    // console.log(e);
+    // window.output.setValue(`Error: ${e}`);
   }
+  window.output.setValue(`// @{Author}: https://github.com/zougataga\n// @{JS-Obfuscator}: https://github.com/zougataga/js-obfuscator\n\n${output}`);
+  $('#output-count')[0].innerText = `${string_length(output)} chars`;
 }
+
+
+async function unicode1(input) {
+  let code = await obfuscate2('ZOUGATAGAONGITHUB', input);
+  code = await obfuscate(code);
+  return code;
+}
+
 
 async function unicode2(input) {
   input = await obfuscate(input, true);
-  console.log(input);
   if (input.length % 2 === 1) {
     input += ' ';
   }
@@ -119,7 +130,6 @@ async function unicode2(input) {
   }
   let code = `eval(unescape(escape\`${output}\`.replace(/u../g,'')))`;
   for (const char of input) {
-    console.log(char.charCodeAt(0));
     if (char.charCodeAt(0) > 255) {
       code = input
     }
@@ -165,17 +175,83 @@ async function unicode3(input) {
     code = input
     // throw 'Une erreur est survenue !';
   };
-  console.log(code);
   code = await obfuscate(code)
   return code;
 
 }
 
 function obfuscate(code, compres) {
-  if (!compres) compres = { compact: true, controlFlowFlattening: true, controlFlowFlatteningThreshold: 1, numbersToExpressions: true, simplify: true, stringArrayShuffle: true, splitStrings: true, simplify: true, stringArrayWrappersType: 'variable', stringArrayThreshold: 1 };
+  if (!compres) compres = {
+    compact: true,
+    controlFlowFlattening: true,
+    controlFlowFlatteningThreshold: 1,
+    numbersToExpressions: true,
+    simplify: true,
+    stringArrayShuffle: true, splitStrings: true, simplify: true, stringArrayWrappersType: 'variable', stringArrayThreshold: 1
+  };
   else compres = { compact: true, };
   const result = JavaScriptObfuscator.obfuscate(code, compres);
   return result.getObfuscatedCode();
+}
+
+function maRainey(v) {
+  var o = '';
+  for (var i = 0; i < v; i++) {
+    o += String.fromCharCode(92);
+  }
+  return o;
+}
+function obfuscate2(glob, code) {
+  var r = '';
+  var n;
+  var t;
+  var b = ["___", "__$", "_$_", "_$$", "$__", "$_$", "$$_", "$$$", "$___", "$__$", "$_$_", "$_$$", "$$__", "$$_$", "$$$_", "$$$$"];
+  var s = '';
+  for (var i = 0; i < code.length; i++) {
+    n = code.charCodeAt(i);
+    if (n == 0x22 || n == 0x5c) {
+      s += maRainey(3) + code.charAt(i).toString(16);
+    } else if ((0x21 <= n && n <= 0x2f) || (0x3A <= n && n <= 0x40) || (0x5b <= n && n <= 0x60) || (0x7b <= n && n <= 0x7f)) {
+      s += code.charAt(i);
+    } else if ((0x30 <= n && n <= 0x39) || (0x61 <= n && n <= 0x66)) {
+      if (s) r += '"' + s + '"+';
+      r += glob + '.' + b[n < 0x40 ? n - 0x30 : n - 0x57] + '+';
+      s = "";
+    } else if (n == 0x6c) {
+      if (s) r += '"' + s + '"+';
+      r += '(![]+"")[' + glob + '._$_]+';
+      s = "";
+    } else if (n == 0x6f) {
+      if (s) r += '"' + s + '"+';
+      r += glob + "._$+";
+      s = "";
+    } else if (n == 0x74) {
+      if (s) r += '"' + s + '"+';
+      r += glob + ".__+";
+      s = "";
+    } else if (n == 0x75) {
+      if (s) r += '"' + s + '"+';
+      r += glob + "._+";
+      s = "";
+    } else if (n < 128) {
+      if (s) r += '"' + s;
+      else r += '"';
+      r += maRainey(2) + '"+' + n.toString(8).replace(/[0-7]/g, function (c) {
+        return glob + '.' + b[c] + '+'
+      });
+      s = "";
+    } else {
+      if (s) r += '"' + s;
+      else r += '"';
+      r += maRainey(2) + '"+' + glob + '._+' + n.toString(16).replace(/[0-9a-f]/gi, function (c) {
+        return glob + '.' + b[parseInt(c, 16)] + '+'
+      });
+      s = "";
+    }
+  }
+  if (s) r += '"' + s + '"+';
+  r = glob + "=~[];" + glob + "={___:++" + glob + ',$$$$:(![]+"")[' + glob + "],__$:++" + glob + ',$_$_:(![]+"")[' + glob + "],_$_:++" + glob + ',$_$$:({}+"")[' + glob + "],$$_$:(" + glob + "[" + glob + ']+"")[' + glob + "],_$$:++" + glob + ',$$$_:(!""+"")[' + glob + "],$__:++" + glob + ",$_$:++" + glob + ',$$__:({}+"")[' + glob + "],$$_:++" + glob + ",$$$:++" + glob + ",$___:++" + glob + ",$__$:++" + glob + "};" + glob + ".$_=" + "(" + glob + ".$_=" + glob + '+"")[' + glob + ".$_$]+" + "(" + glob + "._$=" + glob + ".$_[" + glob + ".__$])+" + "(" + glob + ".$$=(" + glob + '.$+"")[' + glob + ".__$])+" + "((!" + glob + ')+"")[' + glob + "._$$]+" + "(" + glob + ".__=" + glob + ".$_[" + glob + ".$$_])+" + "(" + glob + '.$=(!""+"")[' + glob + ".__$])+" + "(" + glob + '._=(!""+"")[' + glob + "._$_])+" + glob + ".$_[" + glob + ".$_$]+" + glob + ".__+" + glob + "._$+" + glob + ".$;" + glob + ".$$=" + glob + ".$+" + '(!""+"")[' + glob + "._$$]+" + glob + ".__+" + glob + "._+" + glob + ".$+" + glob + ".$$;" + glob + ".$=(" + glob + ".___)[" + glob + ".$_][" + glob + ".$_];" + glob + ".$(" + glob + ".$(" + glob + '.$$+"' + maRainey(1) + '""+' + r + '"' + maRainey(1) + '"")())();';
+  return r;
 }
 
 function notif(content) {
@@ -262,34 +338,29 @@ function telecharger(name, content) {
 // settings
 
 $("#open-modal").click(() => {
-  $().simpleModal({
+  const cook = getCookMode();
+  const m = $().simpleModal({
     name: 'settings',
     title: 'Settings',
     content: `
-    <p id="settingstitle">1. Unicode</p>
-    <div class="mode-selector">
-    ${!getCookMode() || getCookMode() == Mode.UNICODE_2 ? `
-    <input id="mode-unicode-2" type="radio" name="mode" value="unicode-2" checked>
-    <label for="mode-unicode-2">Unicode 2</label>
-    <input id="mode-unicode-3" type="radio" name="mode" value="unicode-3">
-    <label for="mode-unicode-3">Unicode 3</label>
-    `: `
-    <input id="mode-unicode-2" type="radio" name="mode" value="unicode-2" >
-    <label for="mode-unicode-2">Unicode 2</label>
-    <input id="mode-unicode-3" type="radio" name="mode" value="unicode-3" checked>
-    <label for="mode-unicode-3">Unicode 3</label>
-    `}
-    </div>
+    <label id="settingstitle" for="select">1. Unicode</label>
+    <select name="select" id="select">
+        <option value="1" ${!cook || cook == Mode.UNICODE_1 ? "selected" : ""}>Unicode 1</option>
+        <option value="2" ${cook == Mode.UNICODE_2 ? "selected" : ""}>Unicode 2</option>
+        <option value="3" ${cook == Mode.UNICODE_3 ? "selected" : ""}>Unicode 3</option>
+    </select>
     `,
     size: 'small',
     freeze: true,
     callback: function () {
-      $("#mode-unicode-2").change(async () => {
-        await setMode(Mode.UNICODE_2);
-        goo();
-      });
-      $("#mode-unicode-3").change(async () => {
-        await setMode(Mode.UNICODE_3);
+      $("#select").change(async (e) => {
+        const val = $("#select").val();
+
+        if (val == "1") await setMode(Mode.UNICODE_1);
+        else if (val == "2") await setMode(Mode.UNICODE_2);
+        else if (val == "3") await setMode(Mode.UNICODE_3);
+
+        m.close("settings")
         goo();
       });
     }
@@ -312,8 +383,8 @@ $(document).ready(() => {
   if (getCookMode()) {
     mode = getCookMode()
   } else {
-    // setMode(Mode.UNICODE_3);
-    // notif("Unicode 3 définit avec succès !")
+    setMode(Mode.UNICODE_1);
+    //  notif("Unicode 3 définit avec succès !")
   }
 });
 function setCookie(name, value, days) {
