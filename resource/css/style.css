@@ -104,13 +104,20 @@ a.para:hover {
 }
 
 #select {
-    margin-top: 20px;
+    cursor: pointer;
+    margin-top: 5px;
     background-color: #383a59;
     border-radius: 5px;
+    padding: 5px;
+    width: 100%;
     color: #fff;
     border: 2px solid #6272a4;
+    transition: all 0.3s ease;
+    font-weight: 500;
 }
-
+#select:hover {
+    opacity: 0.8;
+}
 .loading {
     display: none;
     position: fixed;
