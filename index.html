@@ -11,22 +11,22 @@
     <link rel="shortcut icon" href="/img/favicon.png" type="image/x-icon">
 
     <meta name="description"
-        content="Un obfuscator Javascript <strong>TRÈS puissant</strong> pour rendre votre code illisible mais fonctionnelle 😎." />
+        content="Un obfuscator Javascript <strong>TRÈS puissant</strong> pour rendre votre code illisible mais fonctionnel 😎." />
     <meta property="og:title" content="JS Obfuscator" />
     <meta property="og:site_name" content="https://github/zougataga/js-obfuscator">
     <meta property="og:type" content="website" />
     <meta name="theme-color" content="#383a59" />
     <meta property="og:description"
-        content="Un obfuscator Javascript <strong>TRÈS puissant</strong> pour rendre votre code illisible mais fonctionnelle 😎." />
+        content="Un obfuscator Javascript <strong>TRÈS puissant</strong> pour rendre votre code illisible mais fonctionnel 😎." />
     <meta property="og:image:type" content="image/jpeg" />
 
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/modal.css">
+    <link rel="stylesheet" href="/css/plugin/modal.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-    <link href="/css/codemirror.css" rel="stylesheet" type="text/css">
-    <script src="/js/codemirror.js"></script>
-    <script src="/js/javascript.js"></script>
+    <link href="/css/plugin/codemirror.css" rel="stylesheet" type="text/css">
+    <script src="/js/plugin/codemirror.js"></script>
+    <script src="/js/plugin/javascript.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/javascript-obfuscator/dist/index.browser.js"></script>
     <script src="https://unpkg.com/@babel/standalone@7.16.7/babel.js" crossorigin></script>
     <!-- <script src="https://unpkg.com/scrollreveal"></script> -->
@@ -47,6 +47,11 @@
         <div class="progress"></div>
     </div>
 
+    <div class="loading">
+        <div class="arc"></div>
+        <div class="arc"></div>
+        <div class="arc"></div>
+    </div>
     <!-- <nav class="settings">
         <ul>
             <li id="open-modal"><a>Settings <i class="fa fa-gear"></i></a></li>
@@ -64,7 +69,7 @@
                 </svg>
             </a>
         </h1>
-        <p class="descr">Un obfuscator Javascript <strong>TRÈS puissant</strong> pour rendre votre code illisible mais fonctionnelle 😎. <a style="margin: 0;" class="para" id="open-modal">Settings</a></p>
+        <p class="descr">Un obfuscator Javascript <strong>TRÈS puissant</strong> pour rendre votre code illisible mais fonctionnel 😎. <a style="margin: 0;" class="para" id="open-modal">Settings</a></p>
 
         <p class="credits">Made with <span class="love">♥</span> by
             <!-- -->
@@ -86,18 +91,10 @@
                 <textarea id="input" rows="6" autocomplete="off" autocorrect="off" autocapitalize="off"
                     spellcheck="false">// TON CODE
 
-(function(){
-    var variable1 = '5' - 3;
-    var variable2 = '5' + 3;
-    var variable3 = '5' + - '2';
-    var variable4 = ['10','10','10','10','10'].map(parseInt);
-    var variable5 = 'foo ' + 1 + 1;
-    console.log(variable1);
-    console.log(variable2);
-    console.log(variable3);
-    console.log(variable4);
-    console.log(variable5);
-})();</textarea>
+function hi() {
+   console.log("Hello World!");
+}
+hi();</textarea>
                 <div class="flex-grow">
                     Input: <span id="input-count"></span>
                 </div>
@@ -121,7 +118,7 @@
 
     </main>
 
-    <script src="/js/modal.js"></script>
+    <script src="/js/plugin/modal.js"></script>
     <script src="/js/index.js"></script>
     <script src="/js/fond.js"></script>
 </body>

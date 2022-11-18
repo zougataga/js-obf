@@ -115,6 +115,9 @@ a.para:hover {
     transition: all 0.3s ease;
     font-weight: 500;
 }
+#select:focus {
+    border: none
+}
 #select:hover {
     opacity: 0.8;
 }
@@ -127,8 +130,8 @@ a.para:hover {
     padding: 30px;
     transition: all 0.3s ease;
     z-index: 100;
-    width: 4rem;
-    height: 4rem;
+    width: 2rem;
+    height: 2rem;
     transform-style: preserve-3d;
     perspective: 800px;
 }
@@ -141,7 +144,7 @@ a.para:hover {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    border-bottom: 3px solid #fff;
+    border-bottom: 3px solid #50fa7b;
 
     transition: .35s;
 
@@ -498,7 +501,7 @@ a {
 } */
 
 ::-webkit-scrollbar {
-    width: 10px;
+    width: auto;
 }
 
 ::-webkit-scrollbar-track {

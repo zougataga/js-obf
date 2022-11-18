@@ -40,14 +40,17 @@ $("#copy-input").click(() => {
   notif("Input copié avec succès")
 });
 $("#clear-input").click(() => {
-  window.input.setValue("// TON CODE");
+  window.input.setValue("");
   notif("Input clear avec succès")
 });
 window.input.on("change", function () {
   inputLength();
   window.input.save()
 });
-
+window.output.on("change", function () {
+  outputLength();
+  window.input.save()
+});
 $("#download-output").click(() => {
   const output = window.output.getValue();
   telecharger("output.txt", output);
@@ -59,34 +62,36 @@ $("#copy-output").click(() => {
   notif("Output copié avec succès")
 });
 $("#clear-output").click(() => {
-  window.output.setValue("// RESULTAT");
-  window.input.setValue("// TON CODE");
-  notif("Input/Output clear avec succès");
+  window.output.setValue("");
+  notif("Output clear avec succès");
 });
-window.output.on("change", function () { window.output.save() });
 
 
 
 
-function goo() {
-  const content = window.input.getValue();
-  const length = string_length(content);
-  if (length <= 0) {
-    notiferror("Merci d'entrer du code dans l'input")
-    return;
-  };
-  const result = new Promise((resolve) => resolve(Babel.transform(content, { presets: ['es2015'] })));
-  result.then(e => {
-    go();
-    notif(`Code obfusquer avec succès [${mode}]`);
-  }).catch(err => {
-    err = `Error: ${err.toString()}`
-    window.output.setValue(err);
-    notiferror(`Input Javascript Error [${mode}]`)
-  });
-  if (window.matchMedia("(max-width: 600px)").matches) {
-    $('html,body').animate({ scrollTop: $("#outputdiv").offset().top }, 'slow');
-  };
+async function goo() {
+  await $(".loading").css("display", "block");
+  setTimeout(async () => {
+    const content = window.input.getValue();
+    const length = string_length(content);
+    if (length <= 0) {
+      notiferror("Merci d'entrer du code dans l'input")
+    } else {
+      const result = new Promise((resolve) => resolve(Babel.transform(content, { presets: ['es2015'] })));
+      result.then(e => {
+        go();
+        notif(`Code obfusquer avec succès [${mode}]`);
+      }).catch(err => {
+        err = `Error: ${err.toString()}`
+        window.output.setValue(err);
+        notiferror(`Input Javascript Error [${mode}]`)
+      });
+      if (window.matchMedia("(max-width: 600px)").matches) {
+        $('html,body').animate({ scrollTop: $("#outputdiv").offset().top }, 'slow');
+      };
+    };
+    $(".loading").css("display", "none");
+  }, 50);
 }
 async function go() {
   const input = window.input.getValue();
@@ -105,16 +110,73 @@ async function go() {
     output = await obfuscate(input);
     // console.log(e);
     // window.output.setValue(`Error: ${e}`);
-  }
+  };
+  $(".loading").css("display", "none");
   window.output.setValue(`// @{Author}: https://github.com/zougataga\n// @{JS-Obfuscator}: https://github.com/zougataga/js-obfuscator\n\n${output}`);
-  $('#output-count')[0].innerText = `${string_length(output)} chars`;
+  await outputLength();
 }
 
 
-async function unicode1(input) {
-  let code = await obfuscate2('ZOUGATAGAONGITHUB', input);
-  code = await obfuscate(code);
-  return code;
+async function unicode1(code) {
+  let r = '';
+  let n;
+  let t;
+  let b = ["___", "__$", "_$_", "_$$", "$__", "$_$", "$$_", "$$$", "$___", "$__$", "$_$_", "$_$$", "$$__", "$$_$", "$$$_", "$$$$"];
+  let s = '';
+  for (let i = 0; i < code.length; i++) {
+    const glob = "ZOUGATAGAONGITHUB";
+    n = code.charCodeAt(i);
+    if (n == 0x22 || n == 0x5c) {
+      s += maRainey(3) + code.charAt(i).toString(16);
+    } else if ((0x21 <= n && n <= 0x2f) || (0x3A <= n && n <= 0x40) || (0x5b <= n && n <= 0x60) || (0x7b <= n && n <= 0x7f)) {
+      s += code.charAt(i);
+    } else if ((0x30 <= n && n <= 0x39) || (0x61 <= n && n <= 0x66)) {
+      if (s) r += '"' + s + '"+';
+      r += glob + '.' + b[n < 0x40 ? n - 0x30 : n - 0x57] + '+';
+      s = "";
+    } else if (n == 0x6c) {
+      if (s) r += '"' + s + '"+';
+      r += '(![]+"")[' + glob + '._$_]+';
+      s = "";
+    } else if (n == 0x6f) {
+      if (s) r += '"' + s + '"+';
+      r += glob + "._$+";
+      s = "";
+    } else if (n == 0x74) {
+      if (s) r += '"' + s + '"+';
+      r += glob + ".__+";
+      s = "";
+    } else if (n == 0x75) {
+      if (s) r += '"' + s + '"+';
+      r += glob + "._+";
+      s = "";
+    } else if (n < 128) {
+      if (s) r += '"' + s;
+      else r += '"';
+      r += maRainey(2) + '"+' + n.toString(8).replace(/[0-7]/g, function (c) {
+        return glob + '.' + b[c] + '+'
+      });
+      s = "";
+    } else {
+      if (s) r += '"' + s;
+      else r += '"';
+      r += maRainey(2) + '"+' + glob + '._+' + n.toString(16).replace(/[0-9a-f]/gi, function (c) {
+        return glob + '.' + b[parseInt(c, 16)] + '+'
+      });
+      s = "";
+    }
+  }
+  if (s) r += '"' + s + '"+';
+  r = glob + "=~[];" + glob + "={___:++" + glob + ',$$$$:(![]+"")[' + glob + "],__$:++" + glob + ',$_$_:(![]+"")[' + glob + "],_$_:++" + glob + ',$_$$:({}+"")[' + glob + "],$$_$:(" + glob + "[" + glob + ']+"")[' + glob + "],_$$:++" + glob + ',$$$_:(!""+"")[' + glob + "],$__:++" + glob + ",$_$:++" + glob + ',$$__:({}+"")[' + glob + "],$$_:++" + glob + ",$$$:++" + glob + ",$___:++" + glob + ",$__$:++" + glob + "};" + glob + ".$_=" + "(" + glob + ".$_=" + glob + '+"")[' + glob + ".$_$]+" + "(" + glob + "._$=" + glob + ".$_[" + glob + ".__$])+" + "(" + glob + ".$$=(" + glob + '.$+"")[' + glob + ".__$])+" + "((!" + glob + ')+"")[' + glob + "._$$]+" + "(" + glob + ".__=" + glob + ".$_[" + glob + ".$$_])+" + "(" + glob + '.$=(!""+"")[' + glob + ".__$])+" + "(" + glob + '._=(!""+"")[' + glob + "._$_])+" + glob + ".$_[" + glob + ".$_$]+" + glob + ".__+" + glob + "._$+" + glob + ".$;" + glob + ".$$=" + glob + ".$+" + '(!""+"")[' + glob + "._$$]+" + glob + ".__+" + glob + "._+" + glob + ".$+" + glob + ".$$;" + glob + ".$=(" + glob + ".___)[" + glob + ".$_][" + glob + ".$_];" + glob + ".$(" + glob + ".$(" + glob + '.$$+"' + maRainey(1) + '""+' + r + '"' + maRainey(1) + '"")())();';
+  r = await obfuscate(r);
+  return r;
+  function maRainey(v) {
+    var o = '';
+    for (var i = 0; i < v; i++) {
+      o += String.fromCharCode(92);
+    }
+    return o;
+  }
 }
 
 
@@ -194,65 +256,6 @@ function obfuscate(code, compres) {
   return result.getObfuscatedCode();
 }
 
-function maRainey(v) {
-  var o = '';
-  for (var i = 0; i < v; i++) {
-    o += String.fromCharCode(92);
-  }
-  return o;
-}
-function obfuscate2(glob, code) {
-  var r = '';
-  var n;
-  var t;
-  var b = ["___", "__$", "_$_", "_$$", "$__", "$_$", "$$_", "$$$", "$___", "$__$", "$_$_", "$_$$", "$$__", "$$_$", "$$$_", "$$$$"];
-  var s = '';
-  for (var i = 0; i < code.length; i++) {
-    n = code.charCodeAt(i);
-    if (n == 0x22 || n == 0x5c) {
-      s += maRainey(3) + code.charAt(i).toString(16);
-    } else if ((0x21 <= n && n <= 0x2f) || (0x3A <= n && n <= 0x40) || (0x5b <= n && n <= 0x60) || (0x7b <= n && n <= 0x7f)) {
-      s += code.charAt(i);
-    } else if ((0x30 <= n && n <= 0x39) || (0x61 <= n && n <= 0x66)) {
-      if (s) r += '"' + s + '"+';
-      r += glob + '.' + b[n < 0x40 ? n - 0x30 : n - 0x57] + '+';
-      s = "";
-    } else if (n == 0x6c) {
-      if (s) r += '"' + s + '"+';
-      r += '(![]+"")[' + glob + '._$_]+';
-      s = "";
-    } else if (n == 0x6f) {
-      if (s) r += '"' + s + '"+';
-      r += glob + "._$+";
-      s = "";
-    } else if (n == 0x74) {
-      if (s) r += '"' + s + '"+';
-      r += glob + ".__+";
-      s = "";
-    } else if (n == 0x75) {
-      if (s) r += '"' + s + '"+';
-      r += glob + "._+";
-      s = "";
-    } else if (n < 128) {
-      if (s) r += '"' + s;
-      else r += '"';
-      r += maRainey(2) + '"+' + n.toString(8).replace(/[0-7]/g, function (c) {
-        return glob + '.' + b[c] + '+'
-      });
-      s = "";
-    } else {
-      if (s) r += '"' + s;
-      else r += '"';
-      r += maRainey(2) + '"+' + glob + '._+' + n.toString(16).replace(/[0-9a-f]/gi, function (c) {
-        return glob + '.' + b[parseInt(c, 16)] + '+'
-      });
-      s = "";
-    }
-  }
-  if (s) r += '"' + s + '"+';
-  r = glob + "=~[];" + glob + "={___:++" + glob + ',$$$$:(![]+"")[' + glob + "],__$:++" + glob + ',$_$_:(![]+"")[' + glob + "],_$_:++" + glob + ',$_$$:({}+"")[' + glob + "],$$_$:(" + glob + "[" + glob + ']+"")[' + glob + "],_$$:++" + glob + ',$$$_:(!""+"")[' + glob + "],$__:++" + glob + ",$_$:++" + glob + ',$$__:({}+"")[' + glob + "],$$_:++" + glob + ",$$$:++" + glob + ",$___:++" + glob + ",$__$:++" + glob + "};" + glob + ".$_=" + "(" + glob + ".$_=" + glob + '+"")[' + glob + ".$_$]+" + "(" + glob + "._$=" + glob + ".$_[" + glob + ".__$])+" + "(" + glob + ".$$=(" + glob + '.$+"")[' + glob + ".__$])+" + "((!" + glob + ')+"")[' + glob + "._$$]+" + "(" + glob + ".__=" + glob + ".$_[" + glob + ".$$_])+" + "(" + glob + '.$=(!""+"")[' + glob + ".__$])+" + "(" + glob + '._=(!""+"")[' + glob + "._$_])+" + glob + ".$_[" + glob + ".$_$]+" + glob + ".__+" + glob + "._$+" + glob + ".$;" + glob + ".$$=" + glob + ".$+" + '(!""+"")[' + glob + "._$$]+" + glob + ".__+" + glob + "._+" + glob + ".$+" + glob + ".$$;" + glob + ".$=(" + glob + ".___)[" + glob + ".$_][" + glob + ".$_];" + glob + ".$(" + glob + ".$(" + glob + '.$$+"' + maRainey(1) + '""+' + r + '"' + maRainey(1) + '"")())();';
-  return r;
-}
 
 function notif(content) {
   const toast = document.querySelector(".toast"),
