@@ -93,6 +93,7 @@ a.para,
 
 a.para {
     padding-top: 1.5px;
+    padding-bottom: 1.5px;
     padding-left: 5px;
     padding-right: 5px;
     background: #696161;
@@ -359,6 +360,7 @@ a {
     border-left: 6px solid #50fa7b;
     overflow: hidden;
     transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.35);
+    margin-left: 20px;
 }
 
 .toasterror.active,

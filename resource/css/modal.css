@@ -46,7 +46,8 @@
     margin-left: auto;
     margin-right: auto;
     display: block;
-    background-color: #1a1a1a;
+    background-color: #282a36;
+    border: 5px solid #6272a4;
     -webkit-border-radius: 6px;
             border-radius: 6px;
     -webkit-box-shadow: 0 16px 64px rgba(0,0,0,0.05);

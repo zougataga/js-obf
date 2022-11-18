@@ -107,6 +107,8 @@ async function go() {
 }
 
 async function unicode2(input) {
+  input = await obfuscate(input, true);
+  console.log(input);
   if (input.length % 2 === 1) {
     input += ' ';
   }
@@ -115,15 +117,23 @@ async function unicode2(input) {
     output += String.fromCharCode(0xD800 + input.charCodeAt(i));
     output += String.fromCharCode(0xDC00 + input.charCodeAt(i + 1))
   }
+  let code = `eval(unescape(escape\`${output}\`.replace(/u../g,'')))`;
+  for (const char of input) {
+    console.log(char.charCodeAt(0));
+    if (char.charCodeAt(0) > 255) {
+      code = input
+    }
+  }
   if (unescape(escape(output).replace(/u../g, '')) !== input) {
-    throw 'Une erreur est survenue !';
+    code = input
+    // throw 'Une erreur est survenue !';
   };
-  let code = `let _ = unescape(escape\`${output}\`.replace(/u../g,''))\neval(_)`;
   code = await obfuscate(code);
   return code;
 }
 
 async function unicode3(input) {
+  let code = "";
   input = await obfuscate(input, true);
   if (!input.startsWith(';')) {
     input = ';' + input;
@@ -144,12 +154,21 @@ async function unicode3(input) {
       test += String.fromCharCode(c.codePointAt(0) / 97 ** i % 97 + 31);
     }
   }
+  code = `for(_=i=3;i--;)for(c of'${output}')_+=String.fromCharCode(c.codePointAt()/97**i%97+31);eval(_)`;
+  for (const char of input) {
+    const charCode = char.charCodeAt(0);
+    if (charCode < 32 || charCode > 127) {
+      code = input
+    }
+  }
   if (test !== input) {
-    throw 'Une erreur est survenue !';
+    code = input
+    // throw 'Une erreur est survenue !';
   };
-  let code = `for(_=i=3;i--;)for(c of'${output}')_+=String.fromCharCode(c.codePointAt()/97**i%97+31);eval(_)`;
-  code = await obfuscate(code);
+  console.log(code);
+  code = await obfuscate(code)
   return code;
+
 }
 
 function obfuscate(code, compres) {
@@ -293,8 +312,8 @@ $(document).ready(() => {
   if (getCookMode()) {
     mode = getCookMode()
   } else {
-    setMode(Mode.UNICODE_3);
-    notif("Unicode 3 définit avec succès !")
+    // setMode(Mode.UNICODE_3);
+    // notif("Unicode 3 définit avec succès !")
   }
 });
 function setCookie(name, value, days) {
