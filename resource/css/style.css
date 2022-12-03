@@ -2,7 +2,6 @@ html {
     height: 100%;
 }
 
-
 body {
     position: relative;
     min-height: 100%;
@@ -115,95 +114,91 @@ a.para:hover {
     transition: all 0.3s ease;
     font-weight: 500;
 }
+
 #select:focus {
     border: none
 }
+
 #select:hover {
     opacity: 0.8;
 }
-.loading {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 30px;
-    transition: all 0.3s ease;
-    z-index: 100;
-    width: 2rem;
-    height: 2rem;
-    transform-style: preserve-3d;
-    perspective: 800px;
-}
 
-.loading .arc {
-    position: absolute;
-    content: "";
-    top: 0;
-    left: 0;
+.preload {
+    display: block;
+    position: fixed;
     width: 100%;
     height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    background: #383a59;
+}
+
+.circle {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    margin: -25px 0 0 -25px;
+    border: 4px #aaa solid;
+    border-top: 4px #eee solid;
     border-radius: 50%;
-    border-bottom: 3px solid #50fa7b;
-
-    transition: .35s;
-
+    -webkit-animation: spin4 1s infinite linear;
+    animation: spin4 1s infinite linear;
 }
 
-.loading .arc:nth-child(1) {
-    animation: rotate1 1.15s linear infinite;
-}
-
-.loading .arc:nth-child(2) {
-    animation: rotate2 1.15s linear infinite;
-}
-
-.loading .arc:nth-child(3) {
-    animation: rotate3 1.15s linear infinite;
-}
-
-.loading .arc:nth-child(1) {
-    animation-delay: -0.8s;
-}
-
-.loading .arc:nth-child(2) {
-    animation-delay: -0.4s;
-}
-
-.loading .arc:nth-child(3) {
-    animation-delay: 0s;
-}
-
-@keyframes rotate1 {
+@-webkit-keyframes spin4 {
     from {
-        transform: rotateX(35deg) rotateY(-45deg) rotateZ(0);
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
     }
 
     to {
-        transform: rotateX(35deg) rotateY(-45deg) rotateZ(1turn);
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
     }
 }
 
-@keyframes rotate2 {
+@keyframes spin4 {
     from {
-        transform: rotateX(50deg) rotateY(10deg) rotateZ(0);
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
     }
 
     to {
-        transform: rotateX(50deg) rotateY(10deg) rotateZ(1turn);
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
     }
+
 }
 
-@keyframes rotate3 {
+@keyframes fade-in-right {
     from {
-        transform: rotateX(35deg) rotateY(55deg) rotateZ(0);
+        opacity: 0;
+        transform: translateX(-15px);
     }
 
     to {
-        transform: rotateX(35deg) rotateY(55deg) rotateZ(1turn);
+        opacity: 1;
+        transform: translateX(0);
     }
 }
 
+@keyframes grow-left {
+    from {
+        transform: scaleX(0);
+    }
+
+    to {
+        transform: scaleX(1);
+    }
+}
 
 .title {
     margin: 0;

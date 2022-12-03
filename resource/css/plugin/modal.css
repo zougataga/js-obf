@@ -104,13 +104,13 @@
     transition: transform 0.25s ease-in-out, opacity 0.1s ease-in-out;
     transition: transform 0.25s ease-in-out, opacity 0.1s ease-in-out, -webkit-transform 0.25s ease-in-out, -moz-transform 0.25s ease-in-out;
   }
-  .no-touch .simple-modal-box__close:hover {
+  .simple-modal-box__close:hover {
     -webkit-transform: rotate(90deg);
        -moz-transform: rotate(90deg);
         -ms-transform: rotate(90deg);
             transform: rotate(90deg);
   }
-  .no-touch .simple-modal-box__close:active {
+  .simple-modal-box__close:active {
     opacity: 0.7;
   }
   @-moz-keyframes animationSimpleModalOverlay {
