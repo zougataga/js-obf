@@ -54,5 +54,4 @@ Sur le <a href="https://zougataga.github.io/js-obfuscator/">Site</a><br><br>
 
 # Crédits
 
-
 <img src="./assets/img/readmeCredits.svg" width="400" height="400">
