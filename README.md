@@ -54,8 +54,13 @@ Sur le <a href="https://zougataga.github.io/js-obfuscator/">Site</a><br><br>
 
 # Crédits
 
-<div>
-<style>
+
+
+
+<svg fill="none" viewBox="0 0 400 400" width="400" height="400" xmlns="http://www.w3.org/2000/svg">
+    <foreignObject width="100%" height="100%">
+        <div xmlns="http://www.w3.org/1999/xhtml">
+        <style>
 
 .credits {
     font-size: 1.3em;
@@ -78,6 +83,8 @@ Sur le <a href="https://zougataga.github.io/js-obfuscator/">Site</a><br><br>
     }
 }
 </style>
-<p class="credits">Made with <span class="love">♥</span> by <a
+            <p class="credits">Made with <span class="love">♥</span> by <a
                     href="https://github.com/zougataga" target="blank">Zougataga</a></p>
-</div>
+        </div>
+    </foreignObject>
+</svg>
