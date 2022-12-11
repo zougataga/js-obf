@@ -477,6 +477,7 @@ pre .tex .formula {
     background-repeat: no-repeat;
     background-position: left center;
     padding: 5px 0 5px 28px;
+    color: #a4b0be;
 }
 
 .icon__download {
@@ -492,7 +493,7 @@ pre .tex .formula {
     background-repeat: no-repeat;
     background-position: left center;
     padding: 5px 0 5px 24px;
-    color: #697898;
+    color: #a4b0be;
 }
 
 .icon__copy {
@@ -501,7 +502,7 @@ pre .tex .formula {
     background-position: left center;
     padding: 5px 0 5px 22px;
     margin-left: 3px;
-    color: #697898;
+    color: #a4b0be;
 }
 
 .icon__clear {
@@ -510,7 +511,7 @@ pre .tex .formula {
     background-position: left center;
     padding: 5px 0 5px 22px;
     margin-left: 3px;
-    color: #697898;
+    color: #a4b0be;
 }
 
 /* CLEAR */
