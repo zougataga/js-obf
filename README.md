@@ -60,31 +60,22 @@ Sur le <a href="https://zougataga.github.io/js-obfuscator/">Site</a><br><br>
 <svg fill="none" viewBox="0 0 400 400" width="400" height="400" xmlns="http://www.w3.org/2000/svg">
     <foreignObject width="100%" height="100%">
         <div xmlns="http://www.w3.org/1999/xhtml">
-        <style>
+            <style>
+            h1 {
+                color: red;
+                animation: mymove 2s infinite;
+            }
 
-.credits {
-    font-size: 1.3em;
-    margin: 0;
-}
-
-.credits .love {
-    display: inline-block;
-    position: relative;
-    top: 0.2em;
-    font-size: 1.4em;
-    color: rgb(255, 121, 198);
-    transform: scale(.9);
-    animation: love .5s linear infinite alternate-reverse;
-}
-
-@keyframes love {
-    to {
-        transform: scale(1.1);
-    }
-}
-</style>
-            <p class="credits">Made with <span class="love">♥</span> by <a
-                    href="https://github.com/zougataga" target="blank">Zougataga</a></p>
+            @keyframes mymove {
+                from {
+                    color: red;
+                }
+                to {
+                    color: yellow;
+                }
+            }
+            </style>
+            <h1>HELLO WORLD!</h1>
         </div>
     </foreignObject>
 </svg>
