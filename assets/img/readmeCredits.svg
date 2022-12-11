@@ -5,6 +5,8 @@
                 .credits {
                     font-size: 1.3em;
                     margin: 0;
+                    font-weight: bold;
+                    color: #fff
                 }
 
                 .credits .love {
