@@ -110,6 +110,9 @@ p {
     line-height: 1.5em
 }
 
+textarea {
+    background-color: transparent;
+}
 
 pre {
     position: relative;
@@ -165,6 +168,10 @@ pre .copied:hover {
 
 pre .copied a.icon__copy {
     color: #fff;
+}
+
+pre::-webkit-scrollbar-thumb:focus ~ pre .copied {
+    display: none;
 }
 
 pre::-webkit-scrollbar-thumb {
@@ -316,7 +323,6 @@ pre .tex .formula {
 }
 
 .header {
-    animation: grow-left ease 0.2s forwards;
     margin-bottom: 64px;
     padding-top: 64px
 }
@@ -354,7 +360,6 @@ pre .tex .formula {
 }
 
 .usage {
-    animation: grow-left ease 0.2s forwards;
     margin-bottom: 64px
 }
 
@@ -376,7 +381,6 @@ pre .tex .formula {
 
 /* DEMO */
 .demo {
-    animation: grow-left ease 0.2s forwards;
     margin-bottom: 64px
 }
 
@@ -503,8 +507,7 @@ pre .tex .formula {
 }
 
 .option button:hover {
-    transform: translateY(-4px);
-
+    background: rgba(0, 0, 0, 0.5);
 }
 
 /* ICON */
@@ -561,6 +564,9 @@ pre .tex .formula {
     width: 72px;
     background: #50fa7b;
     color: #fff;
+}
+.option button.go:hover {
+    background: #30a14d;
 }
 
 
@@ -632,7 +638,7 @@ pre .tex .formula {
 /* FOOTER */
 
 .footer {
-    animation: grow-left ease 0.2s forwards;
+    /* animation: grow-left ease 0.2s forwards; */
     padding-bottom: 48px
 }
 
