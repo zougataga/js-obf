@@ -15,3 +15,11 @@ const obfuscator = new Obfuscator();
 obfuscator.obfuscate(mode, code);
 ```
 
+## Instalation
+
+La méthode la plus simple est d'utiliser la version hébergée à partir de Github
+
+```html
+<script src="https://raw.githubusercontent.com/zougataga/js-obfuscator/main/assets/lib/js-obfuscator.js"></script>
+```
+
