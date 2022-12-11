@@ -7,3 +7,11 @@
     <a target="_blank" href="https://zougataga.github.io/js-obfuscator/">Site</a> · <a target="_blank" href="https://discord.gg/ctp">Discord</a>
   </p>
 </div>
+
+# Usage
+
+```js
+const obfuscator = new Obfuscator();
+obfuscator.obfuscate(mode, code);
+```
+
