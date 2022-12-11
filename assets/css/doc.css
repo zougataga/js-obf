@@ -120,6 +120,7 @@ p {
 
 
 pre {
+    position: relative;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -139,6 +140,39 @@ pre {
     padding: 10px;
 }
 
+
+pre .copied {
+    display: none;
+    cursor: pointer;
+    font-size: 13px;
+    line-height: 20px;
+    padding: 10px;
+    background-color: #21262d;
+    border: 1px solid #aaa;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    position: absolute;
+    top: 7px;
+    right: 1%;
+    transition: 80ms cubic-bezier(0.33, 1, 0.68, 1);
+    transition-property: color, background-color, box-shadow, border-color;
+}
+pre .copied.yes {
+    border-color: #0074d9 !important;
+}
+pre .copied.yes a.icon__copy {
+    background-image: url("../img/icons8-vérifié.svg");
+    background-size: 90%;
+}
+
+pre .copied:hover {
+    border-color: #fff;
+}
+
+pre .copied a.icon__copy {
+    color: #fff;
+}
+
 pre::-webkit-scrollbar-thumb {
     height: 30px !important;
     min-width: 50px;
@@ -149,6 +183,7 @@ pre code {
     display: block;
     background: transparent
 }
+
 
 pre .comment::selection,
 pre .keyword::selection,

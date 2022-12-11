@@ -1,4 +1,33 @@
+// DOC
+const allDocCode = document.querySelectorAll(".usage pre");
 
+allDocCode.forEach(p => {
+    const data = p.getAttribute("data");
+    const code = p.getAttribute("code");
+    const copied = p.querySelector(`#${data}`);
+    if (copied && code) {
+        p.addEventListener("mouseover", async (ev) => copied.style.display = "block");
+        p.addEventListener("mouseout", async (ev) => copied.style.display = "none");
+        const clipboard = new ClipboardJS(`#${data}`, {
+            text: function (trigger) {
+                return code;
+            }
+        });
+        clipboard.on('success', function (e) {
+            copied.classList.add("yes");
+            e.clearSelection();
+            setTimeout(() => {
+                copied.classList.remove("yes");
+            }, 1000);
+        });
+        
+        clipboard.on('error', function (e) {
+            notif("Une erreur est survenue.")
+            console.error('Action:', e.action);
+            console.error('Trigger:', e.trigger);
+        });
+    }
+});
 // OB ONLINE
 window.editor = CodeMirror.fromTextArea($('#code').get(0), {
     mode: "javascript",

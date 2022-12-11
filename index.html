@@ -52,7 +52,7 @@
                 votre code illisible mais fonctionnel</div>
             <div class="header__links">
                 <div class="header__link"><a class="link" target="_blank"
-                        href="https://github.com/zougataga/js-obfuscator/assets/lib/js-obfuscator.js">Download</a></div>
+                        href="https://github.com/zougataga/js-obfuscator/blob/main/assets/lib/js-obfuscator.js">Download</a></div>
                 <div class="header__link"><a class="link" target="_blank"
                         href="https://github.com/zougataga/js-obfuscator">Github</a></div>
             </div>
@@ -64,18 +64,26 @@
             <div class="usage__heading"><a>#</a> Usage</div>
             <div class="usage__content">
                 <p>
-                <pre><code class="html"><span class="tag"><span class="attribute">const</span> <span class="keyword">obfuscator</span> = new <span class="keyword">Obfuscator()</span><span class="norm">;</span></span></code><code class="html"><span class="tag"><span class="keyword">obfuscator</span><span class="norm">.</span><span class="funct">obfuscate</span><span class="norm">(</span><span class="keyword">mode</span><span class="norm">, </span><span class="keyword">code</span><span class="norm">);</span></span></code></pre>
+                <pre data="un" code="const obfuscator = new Obfuscator();
+obfuscator.obfuscate(mode, code);"><span class="copied" id="un"><a class="icon__copy"></a></span><code class="html"><span class="tag"><span class="attribute">const</span> <span class="keyword">obfuscator</span> = new <span class="keyword">Obfuscator()</span><span class="norm">;</span></span></code><code class="html"><span class="tag"><span class="keyword">obfuscator</span><span class="norm">.</span><span class="funct">obfuscate</span><span class="norm">(</span><span class="keyword">mode</span><span class="norm">, </span><span class="keyword">code</span><span class="norm">);</span></span></code></pre>
                 </p>
                 <p><strong>Instalation:</strong></p>
                 <p><i>La méthode la plus simple est d'utiliser la version hébergée à partir de <a
                             href="https://github.com" target="_blank" class="link link--dotted">Github</a></i></p>
                 <p>
-                <pre><code class="html"><span class="tag">&lt;<span class="keyword">script</span><span class="attribute"> src=<span class="string">"https://raw.githubusercontent.com/zougataga/js-obfuscator/main/assets/lib/js-obfuscator.js"</span></span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="keyword">script</span>&gt;</span></code></pre>
+                <pre data="trois" code='&lt;script src="https://raw.githubusercontent.com/zougataga/js-obfuscator/main/assets/lib/js-obfuscator.js>&lt;/script>'><span style="top:2px;transform: scale(0.8);" id="trois" class="copied"><a class="icon__copy"></a></span><code class="html"><span class="tag">&lt;<span class="keyword">script</span><span class="attribute"> src=<span class="string">"https://raw.githubusercontent.com/zougataga/js-obfuscator/main/assets/lib/js-obfuscator.js"</span></span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="keyword">script</span>&gt;</span></code></pre>
                 </p>
                 <p><strong>Example:</strong></p>
                 <p><i>Mode 1</i></p>
                 <p>
-                <pre><code class="html"><span class="tag"><span class="attribute">const</span> <span class="keyword">obfuscator</span> = new <span class="keyword">Obfuscator()</span><span class="norm">;</span></span></code><code class="html"><span class="tag"><span class="attribute">const</span> <span class="keyword">code</span> = <span class="string">`
+                <pre data="deux" code='const obfuscator = new Obfuscator();
+const code = `
+function hi() {
+  console.log("Hello World!");
+}
+hi();`;
+const codeOb = obfuscator.obfuscate(1, code);
+console.log(codeOb);'><span class="copied" id="deux"><a class="icon__copy"></a></span><code class="html"><span class="tag"><span class="attribute">const</span> <span class="keyword">obfuscator</span> = new <span class="keyword">Obfuscator()</span><span class="norm">;</span></span></code><code class="html"><span class="tag"><span class="attribute">const</span> <span class="keyword">code</span> = <span class="string">`
 function hi() {
    console.log("Hello World!");
 }
@@ -100,7 +108,7 @@ hi();`</span><span class="norm">;</span></span></code><code class="html"><span c
                     spellcheck="false">// Collez votre code ou faites glisser un fichier ici
 
 function hi() {
-console.log("Hello World!");
+   console.log("Hello World!");
 }
 hi();</textarea>
                 <div class="option">
@@ -153,7 +161,7 @@ hi();</textarea>
                         href="https://github.com/zougataga/js-obfuscator/fork" data-icon="octicon-repo-forked"
                         aria-label="Fork zougataga/js-obfuscator on GitHub">Fork</a></div>
                 <div class="footer__link"><a class="github-button"
-                        href="https://github.com/zougataga/js-obfuscator/assets/lib/js-obfuscator.js"
+                        href="https://github.com/zougataga/js-obfuscator/blob/main/assets/lib/js-obfuscator.js"
                         data-icon="octicon-cloud-download"
                         aria-label="Download zougataga/js-obfuscator on GitHub">Download</a></div>
             </div>
