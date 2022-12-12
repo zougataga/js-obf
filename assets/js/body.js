@@ -6,8 +6,8 @@ allDocCode.forEach(p => {
     const code = p.getAttribute("code");
     const copied = p.querySelector(`#${data}`);
     if (copied && code) {
-        p.addEventListener("mouseover", async (ev) => copied.style.display = "block");
-        p.addEventListener("mouseout", async (ev) => copied.style.display = "none");
+        p.addEventListener("mouseover", async (ev) => copied.style.opacity = "1");
+        p.addEventListener("mouseout", async (ev) => copied.style.opacity = "0");
         const clipboard = new ClipboardJS(`#${data}`, {
             text: function (trigger) {
                 return code;
@@ -22,11 +22,26 @@ allDocCode.forEach(p => {
         });
         
         clipboard.on('error', function (e) {
-            notif("Une erreur est survenue.")
+            notiferror("Une erreur est survenue.")
             console.error('Action:', e.action);
             console.error('Trigger:', e.trigger);
         });
     }
+});
+
+const clipboardCopyRaw = new ClipboardJS(`#copyRaw`, {
+    text: function (trigger) {
+        return "https://raw.githubusercontent.com/zougataga/js-obfuscator/main/assets/lib/js-obfuscator.js";
+    }
+});
+clipboardCopyRaw.on('success', function (e) {
+     notif("Lien héberger par github copié avec succès !")
+});
+
+clipboardCopyRaw.on('error', function (e) {
+    notiferror("Une erreur est survenue.")
+    console.error('Action:', e.action);
+    console.error('Trigger:', e.trigger);
 });
 // OB ONLINE
 window.editor = CodeMirror.fromTextArea($('#code').get(0), {
@@ -51,7 +66,7 @@ clipboard.on('success', function (e) {
 });
 
 clipboard.on('error', function (e) {
-    notif("Une erreur est survenue.")
+    notiferror("Une erreur est survenue.")
     console.error('Action:', e.action);
     console.error('Trigger:', e.trigger);
 });
