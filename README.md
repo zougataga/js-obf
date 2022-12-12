@@ -7,6 +7,8 @@
   </p>
 </div>
 
+[![js-obf on npm](https://img.shields.io/npm/v/js-obf.svg)](https://www.npmjs.com/package/js-obf)
+
 # Usage
 
 ```js
