@@ -17,11 +17,15 @@ obfuscator.obfuscate(mode, code);
 
 ## Instalation
 
-La méthode la plus simple est d'utiliser la version hébergée à partir de Github
+Vous pouvez l'obtenir sur npm.
 
-```html
-<script src="https://raw.githubusercontent.com/zougataga/js-obfuscator/main/assets/lib/js-obfuscator.js"></script>
+```js
+npm install js-obf
 ```
+
+Ou si vous n'aimez pas la gestion des paquets, téléchargez simplement un fichier <a href="https://github.com/zougataga/js-obfuscator/blob/main/assets/lib/js-obfuscator.js">JS</a>.
+
+
 
 ## Example
 
