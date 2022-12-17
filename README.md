@@ -3,7 +3,7 @@
     <img src="./assets/img/logo.png" alt="Logo" width="80" height="80">
   <h3>JS-OBF</h3>
   <p>
-    <a target="_blank" href="https://zougataga.github.io/js-obf/">Site</a> · <a target="_blank" href="https://discord.gg/ctp">Discord</a>
+    <a target="_blank" href="https://zougataga.github.io/js-obf/">Site</a> 
   </p>
 </div>
 
