@@ -55,5 +55,5 @@ function _0x5989(_0x4d45c3,_0xaed5f3){var _0x2c29bc=_0x1f4e();return _0x5989=fun
 ```
 # Obuscator Online
 Sur le <a href="https://zougataga.github.io/js-obf/">Site</a><br><br>
-<img src="https://cdn.discordapp.com/attachments/1018282509764669550/1051507602669977641/image.png" style="border-radius:5px" width="600" />
+<img src="https://cdn.discordapp.com/attachments/1018282509764669550/1054032638148612126/image.png" style="border-radius:5px" width="600" />
 
