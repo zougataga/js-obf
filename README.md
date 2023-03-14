@@ -3,7 +3,7 @@
     <img src="./site/img/logo.png" alt="Logo" width="80" height="80">
   <h3>JS-OBF</h3>
   <p>
-    <a target="_blank" href="https://zougataga.github.io/js-obf/">Site</a> 
+    <a target="_blank" href="https://zougataga.github.io/js-obf/site/">Site</a> 
   </p>
 </div>
 
