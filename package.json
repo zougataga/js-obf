@@ -1,0 +1,26 @@
+{
+  "name": "js-obf",
+  "version": "2.0.1",
+  "description": "Un obfuscator Javascript open source et puissant pour rendre votre code illisible mais fonctionnel",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zougataga/js-obf.git"
+  },
+  "keywords": [
+    "js",
+    "obfuscator"
+  ],
+  "dependencies": {
+    "javascript-obfuscator": "^4.0.2"
+  },
+  "author": "zougataga",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zougataga/js-obf/issues"
+  },
+  "homepage": "https://github.com/zougataga/js-obf#readme"
+}

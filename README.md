@@ -27,6 +27,7 @@ npm install js-obf
 Ou si vous n'aimez pas la gestion des paquets, téléchargez simplement un fichier <a href="https://github.com/zougataga/js-obfuscator/blob/main/assets/lib/js-obf.js">JS</a>.
 
 
+
 ## Example
 
 <i>Mode 1</i>
